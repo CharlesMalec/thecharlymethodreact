@@ -37,6 +37,14 @@ const Header = () => {
             Services
           </NavLink>
           <NavLink
+            to="/books"
+            className={({ isActive }) =>
+              `block text-gray-600 hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
+            }
+          >
+            Books
+          </NavLink>
+          <NavLink
             to="/contact"
             className={({ isActive }) =>
               `block text-gray-600 hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
@@ -44,6 +52,7 @@ const Header = () => {
           >
             Contact
           </NavLink>
+
         </nav>
         <NavLink
           to="/contact"
