@@ -30,7 +30,7 @@ const Books = () => (
             Buy on Amazon
           </a>
         </div>
-                <div className="bg-white p-10 rounded-3xl shadow-lg services-card-hover">
+        <div className="bg-white p-10 rounded-3xl shadow-lg services-card-hover">
           <img src="https://m.media-amazon.com/images/I/71zXntN+mQL._SL1500_.jpg" alt="Book 1" className="w-full h-64 object-cover rounded-lg mb-6" />
           <h3 className="text-2xl font-semibold mb-3">The Heart of Service: A Blueprint for Human-Centric AI in Customer Service</h3>
           <p className="text-gray-600 text-lg mb-4">by Nick Glimsdahl</p>
@@ -43,8 +43,12 @@ const Books = () => (
         {/* Add more book entries as needed */}
       </div>
       <div className="text-center mt-12">
-        <Link to="/contact" className="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700">
-          Contact Us for More Recommendations
+        <Link
+          to="/contact"
+          className="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700 md:text-lg text-base whitespace-nowrap"
+        >
+          <span className="hidden md:inline">Contact Us for More Recommendations</span>
+          <span className="md:hidden">Contact for Recommendations</span>
         </Link>
       </div>
     </div>
