@@ -15,7 +15,7 @@ const Books = () => (
           <h3 className="text-2xl font-semibold mb-3">The Human-Centric Workplace: Enabling People, Communities and Our Planet to Thrive</h3>
           <p className="text-gray-600 text-lg mb-4">by Simone Fenton-Jarvis</p>
           <p className="text-gray-600 text-lg mb-4"><strong>Description: </strong>Explores how recognition, connection, and empowerment drive human-centric workplaces, with strategies to foster sustainable performance and well-being.</p>
-          <p className="text-gray-600 text-lg mb-4"><strong>Why Recommend:</strong> Focuses on practical approaches to humanize workplaces, ideal for your audience.</p>
+          <p className="text-gray-600 text-lg mb-4"><strong>Why Recommend:</strong> Focuses on practical approaches to humanize workplaces, perfectly alingn with our human-centric approach.</p>
           <a href="https://amzn.to/3JJQpgr" target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700">
             Buy on Amazon
           </a>
