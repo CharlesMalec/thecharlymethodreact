@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../images/logo.png";
 import { FaAssistiveListeningSystems, FaUserAlt, FaBullseye, FaHandsHelping, FaSeedling } from "react-icons/fa";
 
 const principles = [
