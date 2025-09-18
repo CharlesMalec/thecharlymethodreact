@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Hero = () => (
   <section id="hero" className="relative bg-gradient-to-br from-indigo-50 to-blue-100 py-24 md:py-40 flex items-center justify-center text-center">
@@ -9,12 +9,17 @@ const Hero = () => (
       <p className="text-xl md:text-3xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
         From Manager to <span className="text-indigo-600 font-medium">Authentic Leader.</span>
       </p>
-      <Link
+      <NavLink
         to="/contact"
         className="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700"
       >
         Start Your Leadership Journey
-      </Link>
+      </NavLink>
+    </div>
+    <div className="absolute top-4 right-4">
+      <NavLink to="/payment" className="text-white text-sm bg-indigo-600 px-4 py-2 rounded-full hover:bg-indigo-700">
+        Login / Subscribe
+      </NavLink>
     </div>
   </section>
 );

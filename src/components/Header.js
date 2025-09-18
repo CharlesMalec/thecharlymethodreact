@@ -1,9 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase'; // Adjust path to firebase.js
 import logo from '../images/logo-notext.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const [isPremium, setIsPremium] = useState(false);
+
+  useEffect(() => {
+    const checkPremium = async () => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        setIsPremium(userDoc.exists() && userDoc.data().premium);
+      } else {
+        setIsPremium(false);
+      }
+    };
+    checkPremium();
+  }, [user]);
 
   return (
     <header className="bg-white shadow-md p-4 md:p-6 sticky top-0 z-50">
@@ -44,6 +61,16 @@ const Header = () => {
           >
             Books
           </NavLink>
+          {isPremium && (
+            <NavLink
+              to="/material"
+              className={({ isActive }) =>
+                `block text-gray-600 hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
+              }
+            >
+              Material
+            </NavLink>
+          )}
           <NavLink
             to="/contact"
             className={({ isActive }) =>
