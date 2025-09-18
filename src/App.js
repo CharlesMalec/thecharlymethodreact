@@ -11,7 +11,6 @@ import Services from './components/Services';
 import Books from './components/Books';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Login from './components/Login';
 import Payment from './components/Payment';
 import Material from './components/Material';
 
