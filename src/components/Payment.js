@@ -5,9 +5,9 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_your_publishable_key');
+const stripePromise = loadStripe('pk_test_51S8FmaPdI83u7wtyZEFPKUc9NQKXJrmY2KHv3OdXzQyvgR5icfejsztr68iTmbAaXXcGUN27LtKr6sRziFJfHMLq00PosDXQJP');
 
-function CheckoutForm({ user, setError, setSuccess }) {
+function CheckoutForm({ user, setError }) {
   const handleSubscribe = async (event) => {
     event.preventDefault();
     if (!user) return;
@@ -28,7 +28,7 @@ function CheckoutForm({ user, setError, setSuccess }) {
         type="submit"
         className="w-full bg-indigo-400 text-white p-4 rounded-lg hover:bg-indigo-500 transition duration-300 font-semibold text-lg shadow-md flex items-center justify-center space-x-2"
       >
-        <span>Support Charly Method’s growth 5€/month with Premium Access!</span>
+        <span>Support Charly Method’s Growth: €5/month for Premium Access!</span>
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
