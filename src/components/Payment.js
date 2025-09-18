@@ -77,7 +77,7 @@ function Payment() {
   };
 
   const handleCancel = async () => {
-    window.location.href = 'https://billing.stripe.com/p/login/your-portal-link'; // Replace with Stripe Customer Portal URL
+    window.location.href = 'https://billing.stripe.com/p/login/test_4gM9AVggPbKU9O2dvafYY00'; // Replace with Stripe Customer Portal URL
   };
 
   const handleLogout = async () => {
