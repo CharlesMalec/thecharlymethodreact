@@ -9,22 +9,27 @@ const Material = () => {
 
     const tabs = [
         {
-            id: 'toolbox', name: 'Management ToolBox', content: [
+            id: 'toolbox',
+            name: 'Management ToolBox',
+            content: [
                 { name: 'Leadership Guide.pdf', url: '/files/leadership-guide.pdf' },
                 { name: 'Team Building Toolkit.pdf', url: '/files/team-building.pdf' },
-            ]
+            ],
         },
         {
-            id: 'videos-internet', name: 'Videos - Internet', content: [
+            id: 'videos-internet',
+            name: 'Videos - Internet',
+            content: [
                 { name: 'Why good leaders make you feel safe - Simon Sinek - TED (YouTube)', url: 'https://www.youtube.com/watch?v=lmyZMtPVodo' },
                 { name: 'The Power of Listening - William Ury - TED', url: 'https://www.youtube.com/watch?v=saXfavo1OQo' },
-            ]
+            ],
         },
         {
-            id: 'video-courses', name: 'Video - Courses', content: [
-                { name: 'Course: Authentic Leadership', url: '/videos/course-leadership.mp4' },
-                { name: 'Course: Effective Management', url: '/videos/course-management.mp4' },
-            ]
+            id: 'video-courses',
+            name: 'Video - Courses',
+            content: [
+                { name: 'Course: Hear Actively', url: 'https://www.youtube.com/embed/J5VsOeHMSvw?si=wnpffwYz9akor-fD' },
+            ],
         },
     ];
 
@@ -63,7 +68,7 @@ const Material = () => {
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {tabs.find(tab => tab.id === activeTab).content.map((item, index) => (
                             <li key={index} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                                {activeTab === 'videos-internet' ? (
+                                {(activeTab === 'videos-internet' || activeTab === 'video-courses') ? (
                                     <div className="w-full max-w-full">
                                         <div className="aspect-w-16 aspect-h-9">
                                             <iframe
@@ -91,7 +96,7 @@ const Material = () => {
                                         className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center space-x-2"
                                     >
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l-4 4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                                         </svg>
                                         <span>{item.name}</span>
                                     </a>
