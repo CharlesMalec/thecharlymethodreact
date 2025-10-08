@@ -12,8 +12,7 @@ const Material = () => {
             id: 'toolbox',
             name: 'Management ToolBox',
             content: [
-                { name: 'Leadership Guide.pdf', url: '/files/leadership-guide.pdf' },
-                { name: 'Team Building Toolkit.pdf', url: '/files/team-building.pdf' },
+                { name: 'HUMAN - 1 to 1 template.pdf', url: '/documents/HUMAN_1to1_Template.pdf' },
             ],
         },
         {
