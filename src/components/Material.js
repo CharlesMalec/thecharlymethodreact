@@ -40,15 +40,15 @@ const Material = () => {
             {/* Sidebar */}
             <aside className="w-full md:w-72 bg-white shadow-lg">
                 <div className="p-6 sticky top-0">
-                    <h2 className="text-2xl font-bold text-indigo-600 mb-6">Resources</h2>
+                    <h2 className="text-2xl font-bold text-primary mb-6">Resources</h2>
                     <ul className="space-y-2">
                         {tabs.map(tab => (
                             <li key={tab.id}>
                                 <button
                                     onClick={() => setActiveTab(tab.id)}
                                     className={`w-full text-left py-3 px-4 rounded-lg transition duration-300 ${activeTab === tab.id
-                                        ? 'bg-indigo-600 text-white font-semibold'
-                                        : 'text-gray-700 hover:bg-indigo-100 hover:text-indigo-600'
+                                        ? 'bg-primary text-white font-semibold'
+                                        : 'text-gray-700 hover:bg-washedprimary hover:text-white'
                                         }`}
                                 >
                                     {tab.name}
@@ -60,7 +60,7 @@ const Material = () => {
             </aside>
             {/* Content Area */}
             <main className="flex-1 p-6 md:p-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-primary mb-6">
                     {tabs.find(tab => tab.id === activeTab).name}
                 </h2>
                 {tabs.find(tab => tab.id === activeTab).content.length > 0 ? (

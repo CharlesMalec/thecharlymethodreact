@@ -6,7 +6,7 @@ import Human from "./Human";
 const About = () => (
   <section id="about" className="py-20 md:py-32 bg-white">
     <div className="container mx-auto px-4 max-w-6xl">
-      <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-gray-900">
+      <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-primary">
         About Our Method
       </h2>
       <div className="flex flex-col md:flex-row items-center md:space-x-12">

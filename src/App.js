@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; // Added Navigate to imports
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import './index.css';
 import Header from './components/Header';
@@ -13,32 +13,39 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Payment from './components/Payment';
 import Material from './components/Material';
+import Login from './components/Login';
 
 function App() {
-  const [user] = useAuthState(auth);
-  const [premium, setPremium] = useState(false);
+  const [user, loading] = useAuthState(auth);
+  const [premium, setPremium] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      console.log('Checking premium for user:', user.uid);
-      const unsubscribe = onSnapshot(doc(db, 'users', user.uid), (docSnap) => {
-        if (docSnap.exists()) {
-          const isPremium = docSnap.data().premium || false;
-          console.log('Premium status:', isPremium);
-          setPremium(isPremium);
-        } else {
-          console.log('User document not found');
-          setPremium(false);
+    const checkPremium = async () => {
+      if (loading) {
+        console.log('App.js: Waiting for auth to resolve...');
+        return;
+      }
+      if (user) {
+        console.log('App.js:23 Checking premium for user:', user.uid);
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            console.log('App.js:27 Premium status:', userData.premium);
+            setPremium(userData.premium);
+          } else {
+            console.log('App.js: No user doc found');
+          }
+        } catch (err) {
+          console.error('App.js: Premium check error:', err);
         }
-      }, (error) => {
-        console.error('Firestore error:', error);
-      });
-      return () => unsubscribe();
-    } else {
-      console.log('No user logged in');
-      setPremium(false);
-    }
-  }, [user]);
+      } else {
+        console.log('App.js:38 No user logged in');
+      }
+    };
+
+    checkPremium();
+  }, [user, loading]);
 
   return (
     <Router>
@@ -51,7 +58,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/books" element={<Books />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Navigate to="/payment" />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/success" element={<div>Payment Successful!</div>} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/material" element={premium ? <Material /> : <Navigate to="/payment" />} />

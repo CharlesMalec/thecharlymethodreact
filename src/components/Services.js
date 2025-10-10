@@ -4,14 +4,14 @@ import { User, Users, ClipboardList } from "lucide-react";
 const Services = () => (
     <section id="services" className="py-20 md:py-32 bg-gray-50">
         <div className="container mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">Our Coaching Services</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Our Coaching Services</h2>
             <div className="grid md:grid-cols-3 gap-10">
                 {/* One-on-One Coaching */}
                 <div className="bg-white p-10 rounded-3xl shadow-lg services-card-hover">
-                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-indigo-100 rounded-full">
-                        <User className="h-10 w-10 text-indigo-600" />
+                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-primary rounded-full">
+                        <User className="h-10 w-10 text-secondary" />
                     </div>
-                    <h3 className="text-2xl font-semibold mb-3">One-on-One Coaching</h3>
+                    <h3 className="text-2xl text-primary font-semibold mb-3">One-on-One Coaching</h3>
                     <p className="text-gray-600 text-lg">
                         Personalized coaching sessions tailored to your unique leadership challenges—
                         whether it’s decision-making, team dynamics, or personal growth. Through a
@@ -25,10 +25,10 @@ const Services = () => (
 
                 {/* Team Workshops */}
                 <div className="bg-white p-10 rounded-3xl shadow-lg services-card-hover">
-                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-indigo-100 rounded-full">
-                        <Users className="h-10 w-10 text-indigo-600" />
+                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-primary rounded-full">
+                        <Users className="h-10 w-10 text-secondary" />
                     </div>
-                    <h3 className="text-2xl font-semibold mb-3">Team Workshops</h3>
+                    <h3 className="text-2xl text-primary font-semibold mb-3">Team Workshops</h3>
                     <p className="text-gray-600 text-lg">
                         Customized workshops designed to strengthen communication, build trust, and
                         foster a culture of collaboration within your team. Each workshop is tailored
@@ -43,10 +43,10 @@ const Services = () => (
 
                 {/* Leadership Assessments */}
                 <div className="bg-white p-10 rounded-3xl shadow-lg services-card-hover">
-                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-indigo-100 rounded-full">
-                        <ClipboardList className="h-10 w-10 text-indigo-600" />
+                    <div className="flex items-center justify-center h-20 w-20 mb-6 bg-primary rounded-full">
+                        <ClipboardList className="h-10 w-10 text-secondary" />
                     </div>
-                    <h3 className="text-2xl font-semibold mb-3">Leadership Assessments</h3>
+                    <h3 className="text-2xl text-primary font-semibold mb-3">Leadership Assessments</h3>
                     <p className="text-gray-600 text-lg">
                         Comprehensive assessments designed to help young and mid-level managers gain
                         clarity on their leadership style. We’ll identify your strengths, highlight areas
