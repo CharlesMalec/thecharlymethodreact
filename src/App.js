@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import Payment from './components/Payment';
 import Material from './components/Material';
 import Login from './components/Login';
+import ThankYou from './components/ThankYou';
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -58,6 +59,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/books" element={<Books />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/login" element={<Login />} />
             <Route path="/success" element={<div>Payment Successful!</div>} />
             <Route path="/payment" element={<Payment />} />

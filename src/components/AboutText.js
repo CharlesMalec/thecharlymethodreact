@@ -1,16 +1,29 @@
 import React from "react";
 
 const AboutText = () => (
-  <div className="md:w-1/2 mb-8 md:mb-0">
-    <p className="mb-6 text-lg text-gray-600 leading-relaxed">
-      In today's fast-paced world, being a good manager is no longer enough. 
-      The most successful organizations are built on a foundation of genuine, human-centric leadership. 
-      The transition from managing tasks to truly leading people can feel overwhelming, but it is the most critical step in a professional’s journey.
+  <div className="md:w-1/2 mb-8 md:mb-0 text-gray-700">
+    <p className="mb-6 text-lg leading-relaxed">
+      In today’s fast-paced and uncertain world, being a “good manager” is no longer enough.
+      True leadership begins when we stop managing tasks — and start leading humans.
+      The Charly Method helps professionals make this essential shift toward <strong>authentic, human-centered leadership</strong>.
     </p>
-    <p className="text-lg text-gray-600 leading-relaxed">
-      Through a personalized and ethical approach, we equip leaders with the tools to inspire their teams, foster a culture of trust, and navigate challenges with confidence. 
-      Whether you are a rising professional or a seasoned executive, The Charly Method guides you in becoming a more authentic, impactful, and fulfilled leader. 
-      We empower you to cultivate a leadership style that is not only effective, but profoundly human.
+
+    <p className="mb-6 text-lg leading-relaxed">
+      Many managers feel the pressure to perform yet struggle to keep their teams engaged,
+      motivated, and aligned. Our approach focuses on <strong>connection over control</strong> —
+      empowering you to inspire, listen, and lead with clarity and empathy.
+    </p>
+
+    <p className="mb-6 text-lg leading-relaxed">
+      Through a <strong>personalized and ethical coaching journey</strong>, we equip leaders
+      with practical tools to build trust, navigate conflict, and nurture growth.
+      Whether you’re a rising professional or a seasoned executive,
+      <em> The Charly Method </em> guides you toward becoming a more confident, impactful, and fulfilled leader.
+    </p>
+
+    <p className="text-lg leading-relaxed">
+      Discover how a <strong>human-centered approach</strong> can transform your leadership —
+      for yourself, your team, and your organization.
     </p>
   </div>
 );
