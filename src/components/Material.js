@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { Navigate } from 'react-router-dom';
+import humanTemplate from '../documents/HUMAN_1to1_Template.pdf';
 
 const Material = () => {
     const [user, loading] = useAuthState(auth);
@@ -12,7 +13,7 @@ const Material = () => {
             id: 'toolbox',
             name: 'Management ToolBox',
             content: [
-                { name: 'HUMAN - 1 to 1 template.pdf', url: '/documents/HUMAN_1to1_Template.pdf' },
+                { name: 'HUMAN - 1 to 1 template.pdf', url: humanTemplate },
             ],
         },
         {
