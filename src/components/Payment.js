@@ -6,9 +6,12 @@ import { auth, db } from '../firebase';
 import { loadStripe } from '@stripe/stripe-js';
 
 // ⬇️ plus de clé en dur : lue depuis l'env CRA
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const pk = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+if (!pk) throw new Error("Missing REACT_APP_STRIPE_PUBLISHABLE_KEY");
+const stripePromise = loadStripe(pk);
 // ⬇️ base des Cloud Functions (configurable)
 const FUNCTIONS_BASE = process.env.REACT_APP_FUNCTIONS_BASE || 'https://us-central1-thecharlymethodreact.cloudfunctions.net';
+
 
 function CheckoutForm({ user, setError }) {
   const handleSubscribe = async (event) => {
