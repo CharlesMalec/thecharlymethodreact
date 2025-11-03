@@ -99,14 +99,20 @@ function Payment() {
   const handleManageBilling = async () => {
     try {
       const idToken = await auth.currentUser.getIdToken();
-      const resp = await fetch(`/api/createPortalSession`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${idToken}`,
-        },
-      });
-      if (!resp.ok) throw new Error('Could not open billing portal');
+      const resp = await fetch(
+        'https://us-central1-thecharlymethodreact.cloudfunctions.net/createPortalSession',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`,
+          },
+        }
+      );
+      if (!resp.ok) {
+        const txt = await resp.text();
+        throw new Error(`Could not open billing portal (${resp.status}): ${txt}`);
+      }
       const { url } = await resp.json();
       window.location.href = url;
     } catch (e) {
