@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { loadStripe } from '@stripe/stripe-js';
 
-// Clé publishable Stripe lue via env (Netlify)
+// Publishable key Stripe (LIVE)
 const pk = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
-if (!pk) {
-  console.error("Missing REACT_APP_STRIPE_PUBLISHABLE_KEY");
-}
+if (!pk) console.error('Missing REACT_APP_STRIPE_PUBLISHABLE_KEY');
 const stripePromise = pk ? loadStripe(pk) : Promise.resolve(null);
+
+// URLs directes vers tes Cloud Functions (pas de proxy Netlify)
+const CFN_BASE = 'https://us-central1-thecharlymethodreact.cloudfunctions.net';
 
 function CheckoutForm({ user, setError }) {
   const handleSubscribe = async (event) => {
@@ -21,7 +22,7 @@ function CheckoutForm({ user, setError }) {
         uid: user.uid,
         email: (user.email || '').toLowerCase(),
       };
-      const resp = await fetch(`/api/createCheckoutSession`, {
+      const resp = await fetch(`${CFN_BASE}/createCheckoutSession`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -61,12 +62,35 @@ function Payment() {
   const [success, setSuccess] = useState(null);
   const [subscriptionStatus, setSubscriptionStatus] = useState(null);
 
+  // 🔄 Suivi temps réel du flag premium
   useEffect(() => {
-    if (user) {
-      getDoc(doc(db, 'users', user.uid)).then(docSnap => {
-        if (docSnap.exists()) setSubscriptionStatus(docSnap.data().premium ? 'active' : 'inactive');
-      });
-    }
+    if (!user) return;
+    const ref = doc(db, 'users', user.uid);
+    const unsub = onSnapshot(ref, (docSnap) => {
+      const premium = !!docSnap.data()?.premium;
+      setSubscriptionStatus(premium ? 'active' : 'inactive');
+    });
+    return () => unsub();
+  }, [user]);
+
+  // 🔁 Resync au retour du portail (success/canceled)
+  useEffect(() => {
+    (async () => {
+      if (!user) return;
+      const url = new URL(window.location.href);
+      const fromPortal = url.searchParams.get('canceled') || url.searchParams.get('success');
+      if (!fromPortal) return;
+      try {
+        const idToken = await auth.currentUser.getIdToken();
+        await fetch(`${CFN_BASE}/syncPremium`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`,
+          }
+        });
+      } catch (_) {}
+    })();
   }, [user]);
 
   const signIn = async () => {
@@ -99,16 +123,13 @@ function Payment() {
   const handleManageBilling = async () => {
     try {
       const idToken = await auth.currentUser.getIdToken();
-      const resp = await fetch(
-        'https://us-central1-thecharlymethodreact.cloudfunctions.net/createPortalSession',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`,
-          },
-        }
-      );
+      const resp = await fetch(`${CFN_BASE}/createPortalSession`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`,
+        },
+      });
       if (!resp.ok) {
         const txt = await resp.text();
         throw new Error(`Could not open billing portal (${resp.status}): ${txt}`);
