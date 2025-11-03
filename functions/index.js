@@ -24,11 +24,21 @@ exports.createCheckoutSession = onRequest(
   async (req, res) => {
     try {
       const stripe = makeStripe();
+      const { uid, email } = req.body || {};
+      if (!uid || !email) return res.status(400).json({ error: "uid and email required" });
+      // 1) Retrouver ou créer un customer
+      const list = await stripe.customers.list({ email, limit: 1 });
+      const customer = list.data[0]?
+      await stripe.customers.update(list.data[0].id, { metadata: { uid } }):
+      await stripe.customers.create({ email, metadata: { uid } });
+      // 2) Créer la session en taggant le uid
       const session = await stripe.checkout.sessions.create({
         mode: "subscription",
         payment_method_types: ["card"],
         line_items: [{ price: process.env.STRIPE_PRICE, quantity: 1 }],
-        customer_email: req.query.email || req.body?.email,
+        customer: customer.id,
+        metadata: { uid },
+        subscription_data: { metadata: { uid } },
         success_url: "https://thecharlymethod.com/success",
         cancel_url: "https://thecharlymethod.com/payment",
       });
@@ -71,18 +81,35 @@ exports.stripeWebhook = onRequest(
       switch (event.type) {
         case "checkout.session.completed": {
           const session = event.data.object;
-          const userEmail = session.customer_email;
+          let uid = session?.metadata?.uid || null;
+          // Fallback 1: via subscription metadata
+          if (!uid && session.subscription) {
+            const sub = await stripe.subscriptions.retrieve(session.subscription);
+            uid = sub?.metadata?.uid || null;
+          }
+          // Fallback 2: via customer metadata
+          if (!uid && session.customer) {
+            const cust = await stripe.customers.retrieve(session.customer);
+            uid = cust?.metadata?.uid || null;
+          }
+          if (uid) {
+            await admin.firestore().collection("users").doc(uid).set(
+              { premium: true, updatedAt: admin.firestore.FieldValue.serverTimestamp() },
+              { merge: true }
+            );
+          } else {
+          // Dernier recours: email normalisé (si tu as ce champ dans tes docs)
+          const userEmail = (session.customer_details?.email || session.customer_email || "").toLowerCase();
           if (userEmail) {
-            const snap = await admin
-              .firestore()
-              .collection("users")
-              .where("email", "==", userEmail)
-              .limit(1)
-              .get();
+            const snap = await admin.firestore()
+            .collection("users")
+            .where("emailLower", "==", userEmail)
+            .limit(1).get();
             if (!snap.empty) {
-              await snap.docs[0].ref.update({ premium: true });
+              await snap.docs[0].ref.update({ premium: true, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
             }
           }
+        }
           break;
         }
         case "customer.subscription.deleted": {

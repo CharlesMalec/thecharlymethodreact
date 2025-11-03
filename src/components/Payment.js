@@ -22,7 +22,10 @@ function CheckoutForm({ user, setError }) {
       const resp = await fetch(`${FUNCTIONS_BASE}/createCheckoutSession`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email }),
+        body: JSON.stringify({
+          uid: user.uid,
+          email: (user.email || '').toLowerCase(),
+        }),
       });
       if (!resp.ok) throw new Error('Checkout creation failed');
       const { id } = await resp.json();
@@ -80,7 +83,7 @@ function Payment() {
   const signUp = async () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email.toLowerCase(), password);
-      await setDoc(doc(db, 'users', user.uid), { premium: false, email: email.toLowerCase() });
+      await setDoc(doc(db, 'users', user.uid), { premium: false, email: email.toLowerCase(),emailLower: email.toLowerCase() });
       setSuccess('Account created successfully!');
       setError(null);
     } catch (err) {
