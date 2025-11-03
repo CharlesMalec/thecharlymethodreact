@@ -1,133 +1,176 @@
-// --- v2 imports ---
-const { onRequest } = require("firebase-functions/v2/https");
-const admin = require("firebase-admin");
-const Stripe = require("stripe");
+import { onRequest } from "firebase-functions/v2/https";
+import { defineSecret } from "firebase-functions/params";
+import Stripe from "stripe";
+import admin from "firebase-admin";
 
-// init Firebase Admin
-admin.initializeApp();
+if (!admin.apps.length) admin.initializeApp();
 
-// Helper to build a Stripe client from the secret
-function makeStripe() {
-  return new Stripe(process.env.STRIPE_SECRET, { apiVersion: "2024-06-20" });
-}
+const STRIPE_SECRET = defineSecret("STRIPE_SECRET");
+const STRIPE_PRICE_ID = defineSecret("STRIPE_PRICE_ID");        // ex: price_xxx
+const STRIPE_WEBHOOK_SECRET = defineSecret("STRIPE_WEBHOOK_SECRET");
 
-/**
- * Create Checkout Session (subscription)
- * - Reads STRIPE_SECRET and STRIPE_PRICE from v2 Secrets
- */
-exports.createCheckoutSession = onRequest(
-  {
-    region: "us-central1",
-    cors: true, // allows browser calls; adjust to specific origin later
-    secrets: ["STRIPE_SECRET", "STRIPE_PRICE"],
-  },
+// Utilitaire Firestore
+const setPremium = async (uid, value, extra = {}) => {
+  await admin.firestore().collection('users').doc(uid).set(
+    { premium: value, updatedAt: admin.firestore.FieldValue.serverTimestamp(), ...extra },
+    { merge: true }
+  );
+};
+
+// ============ CREATE CHECKOUT SESSION ============
+export const createCheckoutSession = onRequest(
+  { cors: true, secrets: [STRIPE_SECRET, STRIPE_PRICE_ID] },
   async (req, res) => {
     try {
-      const stripe = makeStripe();
-      const { uid, email } = req.body || {};
-      if (!uid || !email) return res.status(400).json({ error: "uid and email required" });
-      // 1) Retrouver ou créer un customer
+      if (req.method === 'OPTIONS') return res.status(204).send('');
+      if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+
+      const { uid, email, priceId } = req.body || {};
+      if (!uid || !email) return res.status(400).json({ error: 'uid and email required' });
+
+      const stripe = new Stripe(STRIPE_SECRET.value(), { apiVersion: '2024-06-20' });
+
+      // Retrouver ou créer le customer
       const list = await stripe.customers.list({ email, limit: 1 });
-      const customer = list.data[0]?
-      await stripe.customers.update(list.data[0].id, { metadata: { uid } }):
-      await stripe.customers.create({ email, metadata: { uid } });
-      // 2) Créer la session en taggant le uid
+      const customer = list.data.length
+        ? await stripe.customers.update(list.data[0].id, { metadata: { uid } })
+        : await stripe.customers.create({ email, metadata: { uid } });
+
+      // Créer la session d'abonnement
       const session = await stripe.checkout.sessions.create({
-        mode: "subscription",
-        payment_method_types: ["card"],
-        line_items: [{ price: process.env.STRIPE_PRICE, quantity: 1 }],
+        mode: 'subscription',
         customer: customer.id,
+        line_items: [{ price: priceId || STRIPE_PRICE_ID.value(), quantity: 1 }],
         metadata: { uid },
         subscription_data: { metadata: { uid } },
-        success_url: "https://thecharlymethod.com/success",
-        cancel_url: "https://thecharlymethod.com/payment",
+        allow_promotion_codes: true,
+        success_url: 'https://thecharlymethod.com/payment?success=true',
+        cancel_url: 'https://thecharlymethod.com/payment?canceled=true',
       });
-      res.json({ id: session.id });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: error.message });
+
+      return res.json({ id: session.id });
+    } catch (e) {
+      console.error('createCheckoutSession error', e);
+      return res.status(500).json({ error: 'Checkout creation failed' });
     }
   }
 );
 
-/**
- * Stripe Webhook (raw body, no JSON parsing before verification)
- * - Reads STRIPE_SECRET and STRIPE_WHSEC from v2 Secrets
- */
-exports.stripeWebhook = onRequest(
-  {
-    region: "us-central1",
-    // Do NOT set cors here; Stripe doesn't need CORS. Keep body unmodified.
-    secrets: ["STRIPE_SECRET", "STRIPE_WHSEC"],
-  },
+// ============ STRIPE WEBHOOK ============
+export const stripeWebhook = onRequest(
+  { cors: true, secrets: [STRIPE_SECRET, STRIPE_WEBHOOK_SECRET] },
   async (req, res) => {
-    const stripe = makeStripe();
+    const stripe = new Stripe(STRIPE_SECRET.value(), { apiVersion: '2024-06-20' });
+    const sig = req.headers['stripe-signature'];
 
     let event;
     try {
-      const sig = req.headers["stripe-signature"];
-      // req.rawBody is available in v2
+      // Firebase v2: req.rawBody est disponible
       event = stripe.webhooks.constructEvent(
         req.rawBody,
         sig,
-        process.env.STRIPE_WHSEC
+        STRIPE_WEBHOOK_SECRET.value()
       );
     } catch (err) {
-      console.error("❌ Webhook signature verification failed.", err.message);
+      console.error('Webhook signature verification failed:', err.message);
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     try {
       switch (event.type) {
-        case "checkout.session.completed": {
-          const session = event.data.object;
-          let uid = session?.metadata?.uid || null;
-          // Fallback 1: via subscription metadata
-          if (!uid && session.subscription) {
-            const sub = await stripe.subscriptions.retrieve(session.subscription);
+        case 'checkout.session.completed': {
+          const s = event.data.object;
+          let uid = s?.metadata?.uid || null;
+          let subscriptionId = s.subscription || null;
+          const customerId = s.customer || null;
+
+          // Fallback: aller chercher le uid dans la subscription
+          if (!uid && subscriptionId) {
+            const sub = await stripe.subscriptions.retrieve(subscriptionId);
             uid = sub?.metadata?.uid || null;
           }
-          // Fallback 2: via customer metadata
-          if (!uid && session.customer) {
-            const cust = await stripe.customers.retrieve(session.customer);
-            uid = cust?.metadata?.uid || null;
-          }
+
           if (uid) {
-            await admin.firestore().collection("users").doc(uid).set(
-              { premium: true, updatedAt: admin.firestore.FieldValue.serverTimestamp() },
-              { merge: true }
-            );
-          } else {
-          // Dernier recours: email normalisé (si tu as ce champ dans tes docs)
-          const userEmail = (session.customer_details?.email || session.customer_email || "").toLowerCase();
-          if (userEmail) {
-            const snap = await admin.firestore()
-            .collection("users")
-            .where("emailLower", "==", userEmail)
-            .limit(1).get();
-            if (!snap.empty) {
-              await snap.docs[0].ref.update({ premium: true, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
-            }
+            await setPremium(uid, true, {
+              stripeCustomerId: customerId || null,
+              stripeSubscriptionId: subscriptionId || null,
+              subscriptionStatus: 'active',
+              premiumSource: 'checkout.session.completed',
+            });
           }
-        }
           break;
         }
-        case "customer.subscription.deleted": {
-          // TODO: look up your user from the Stripe customer and set premium=false
+
+        case 'customer.subscription.updated': {
+          const sub = event.data.object;
+          const uid = sub?.metadata?.uid || null;
+          const isActive = ['active', 'trialing', 'past_due'].includes(sub.status);
+          if (uid) {
+            await setPremium(uid, isActive, {
+              stripeSubscriptionId: sub.id,
+              subscriptionStatus: sub.status,
+              premiumSource: 'subscription.updated',
+            });
+          }
           break;
         }
-        case "invoice.paid":
-        case "customer.subscription.updated":
-          // Optional: sync subscription status/periods
+
+        case 'customer.subscription.deleted': {
+          const sub = event.data.object;
+          const uid = sub?.metadata?.uid || null;
+          if (uid) {
+            await setPremium(uid, false, {
+              stripeSubscriptionId: sub.id,
+              subscriptionStatus: sub.status,
+              premiumSource: 'subscription.deleted',
+            });
+          }
           break;
+        }
+
         default:
-          // ignore others
+          // autres events ignorés
           break;
       }
-      res.json({ received: true });
+
+      return res.json({ received: true });
     } catch (err) {
-      console.error("⚠️ Webhook handler error:", err);
-      res.status(500).send("Webhook handler failed");
+      console.error('Webhook handler error', err);
+      return res.status(500).send('Webhook handler error');
+    }
+  }
+);
+
+// ============ BILLING PORTAL ============
+export const createPortalSession = onRequest(
+  { cors: true, secrets: [STRIPE_SECRET] },
+  async (req, res) => {
+    try {
+      if (req.method === 'OPTIONS') return res.status(204).send('');
+      if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+
+      const authHeader = req.headers.authorization || '';
+      const idToken = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null;
+      if (!idToken) return res.status(401).json({ error: 'Missing Authorization' });
+
+      const decoded = await admin.auth().verifyIdToken(idToken);
+      const uid = decoded.uid;
+
+      const snap = await admin.firestore().doc(`users/${uid}`).get();
+      const data = snap.data() || {};
+      const customerId = data.stripeCustomerId;
+      if (!customerId) return res.status(400).json({ error: 'No Stripe customer on user' });
+
+      const stripe = new Stripe(STRIPE_SECRET.value(), { apiVersion: '2024-06-20' });
+      const portal = await stripe.billingPortal.sessions.create({
+        customer: customerId,
+        return_url: 'https://thecharlymethod.com/payment',
+      });
+
+      return res.json({ url: portal.url });
+    } catch (e) {
+      console.error('createPortalSession error', e);
+      return res.status(500).json({ error: 'Could not open billing portal' });
     }
   }
 );

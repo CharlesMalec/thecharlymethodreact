@@ -5,32 +5,32 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { loadStripe } from '@stripe/stripe-js';
 
-// ⬇️ plus de clé en dur : lue depuis l'env CRA
+// Clé publishable Stripe lue via env (Netlify)
 const pk = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
-if (!pk) throw new Error("Missing REACT_APP_STRIPE_PUBLISHABLE_KEY");
-const stripePromise = loadStripe(pk);
-// ⬇️ base des Cloud Functions (configurable)
-const FUNCTIONS_BASE = process.env.REACT_APP_FUNCTIONS_BASE || 'https://us-central1-thecharlymethodreact.cloudfunctions.net';
-
+if (!pk) {
+  console.error("Missing REACT_APP_STRIPE_PUBLISHABLE_KEY");
+}
+const stripePromise = pk ? loadStripe(pk) : Promise.resolve(null);
 
 function CheckoutForm({ user, setError }) {
   const handleSubscribe = async (event) => {
     event.preventDefault();
     if (!user) return;
     try {
-      // passe en POST + JSON (meilleure hygiène)
-      const resp = await fetch(`${FUNCTIONS_BASE}/createCheckoutSession`, {
+      const body = {
+        uid: user.uid,
+        email: (user.email || '').toLowerCase(),
+      };
+      const resp = await fetch(`/api/createCheckoutSession`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          uid: user.uid,
-          email: (user.email || '').toLowerCase(),
-        }),
+        body: JSON.stringify(body),
       });
       if (!resp.ok) throw new Error('Checkout creation failed');
       const { id } = await resp.json();
 
       const stripe = await stripePromise;
+      if (!stripe) throw new Error('Stripe not initialized');
       const { error } = await stripe.redirectToCheckout({ sessionId: id });
       if (error) setError(error.message);
     } catch (err) {
@@ -83,7 +83,11 @@ function Payment() {
   const signUp = async () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email.toLowerCase(), password);
-      await setDoc(doc(db, 'users', user.uid), { premium: false, email: email.toLowerCase(),emailLower: email.toLowerCase() });
+      await setDoc(doc(db, 'users', user.uid), {
+        premium: false,
+        email: email.toLowerCase(),
+        emailLower: email.toLowerCase(),
+      });
       setSuccess('Account created successfully!');
       setError(null);
     } catch (err) {
@@ -94,7 +98,14 @@ function Payment() {
 
   const handleManageBilling = async () => {
     try {
-      const resp = await fetch(`${FUNCTIONS_BASE}/createPortalSession`, { method: 'POST' });
+      const idToken = await auth.currentUser.getIdToken();
+      const resp = await fetch(`/api/createPortalSession`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`,
+        },
+      });
       if (!resp.ok) throw new Error('Could not open billing portal');
       const { url } = await resp.json();
       window.location.href = url;
