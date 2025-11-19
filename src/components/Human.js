@@ -38,7 +38,7 @@ const Human = () => (
   <section id="human" className="py-20 md:py-32 bg-white">
     <div className="container mx-auto px-4 max-w-6xl">
       <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-primary">
-        HUMAN-Centered Management
+        The HUMAN Framework - Core values
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {principles.map((item) => (
