@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { Navigate } from 'react-router-dom';
 import humanTemplate from '../documents/HUMAN_1to1_Template.pdf';
+import humanQuickScan from '../documents/HUMAN - Quick Scan.pdf';
 
 const Material = () => {
     const [user, loading] = useAuthState(auth);
@@ -14,6 +15,7 @@ const Material = () => {
             name: 'Management ToolBox',
             content: [
                 { name: 'HUMAN - 1 to 1 template.pdf', url: humanTemplate },
+                { name: 'HUMAN - Quick Scan.pdf', url: humanQuickScan },
             ],
         },
         {
