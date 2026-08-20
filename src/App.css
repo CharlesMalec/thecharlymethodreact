@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+/* Custom decorative background textures for organic warmth */
+.dot-grid {
+  background-image: radial-gradient(#0B2C54 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.glow-blob-primary {
+  background: radial-gradient(circle, rgba(11, 44, 84, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.glow-blob-secondary {
+  background: radial-gradient(circle, rgba(244, 163, 0, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

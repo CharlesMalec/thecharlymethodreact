@@ -16,6 +16,7 @@
     }
   ],
   "hosting": {
+    "site": "thecharlymethodreact",
     "public": "build",
     "ignore": [
       "firebase.json",

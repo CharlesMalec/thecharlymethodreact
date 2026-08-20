@@ -3,27 +3,19 @@ import React from "react";
 const AboutText = () => (
   <div className="md:w-1/2 mb-8 md:mb-0 text-gray-700">
     <p className="mb-6 text-lg leading-relaxed">
-      In today’s fast-paced and uncertain world, being a “good manager” is no longer enough.
-      True leadership begins when we stop managing tasks — and start leading humans.
-      The Charly Method helps professionals make this essential shift toward <strong>authentic, human-centered leadership</strong>.
+      Hi, I’m Charly. Sometimes we find ourselves at a crossroads—facing a complex choice in our personal lives, or trying to figure out the next step in our career. During these moments, having someone to talk to, completely free of judgment, makes all the difference.
     </p>
 
     <p className="mb-6 text-lg leading-relaxed">
-      Many managers feel the pressure to perform yet struggle to keep their teams engaged,
-      motivated, and aligned. Our approach focuses on <strong>connection over control</strong> —
-      empowering you to inspire, listen, and lead with clarity and empathy.
+      My coaching isn't about rigid corporate frameworks or consultant buzzwords. It’s built on real life and real conversation. I’m here to help you look at your challenges with fresh eyes, weigh your options, and make choices that feel genuinely right for you.
     </p>
 
     <p className="mb-6 text-lg leading-relaxed">
-      Through a <strong>personalized and ethical coaching journey</strong>, we equip leaders
-      with practical tools to build trust, navigate conflict, and nurture growth.
-      Whether you’re a rising professional or a seasoned executive,
-      <em> The Charly Method </em> guides you toward becoming a more confident, impactful, and fulfilled leader.
+      At the same time, having spent years as a senior manager, I understand the actual, everyday realities of leading teams and navigating organizational life. I can offer practical, honest guidance for professional growth—not from a textbook, but from years of hands-on experience in the field.
     </p>
 
     <p className="text-lg leading-relaxed">
-      Discover how a <strong>human-centered approach</strong> can transform your leadership —
-      for yourself, your team, and your organization.
+      Whether you are trying to resolve a personal dilemma, or aiming to lead your team with more confidence and less stress, let's take that step together, simply as human beings.
     </p>
   </div>
 );

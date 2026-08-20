@@ -8,12 +8,11 @@ const ThankYou = () => (
         Thank You for Reaching Out!
       </h1>
       <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-        Your message has been received — and I truly appreciate you taking the first step
-        toward <strong>authentic, human-centered leadership</strong>.
+        Your message has been received — and I truly appreciate you taking the time to share what is on your mind.
       </p>
       <p className="text-gray-600 mb-10">
-        I respond personally to every inquiry within 24 hours.
-        In the meantime, feel free to explore more about The Charly Method or connect with me on LinkedIn.
+        I respond personally to every message within 24 hours.
+        In the meantime, feel free to explore more about my approach or connect with me on LinkedIn.
       </p>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-4">
@@ -21,7 +20,7 @@ const ThankYou = () => (
           to="/about"
           className="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow hover:bg-indigo-700 transition"
         >
-          Learn More About the Method
+          Learn More About My Approach
         </NavLink>
 
         <a

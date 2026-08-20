@@ -1,18 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html"
+  ],
   theme: {
     extend: {
       colors: {
-        primary: '#183668',   // deep navy blue
-        secondary: '#f8a23a', // warm orange
-        washedprimary : '#8894AC',
-        washedsecondary: '#BC8C64',
-        gradient: "#8C9CAD",
-      },
+        primary: {
+          DEFAULT: '#0B2C54',
+          dark: '#06172E',
+        },
+        secondary: '#F4A300',
+        washedprimary: '#1F4775',
+        gradient: '#0B2C54',
+      }
     },
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
   ],
-};
+}
