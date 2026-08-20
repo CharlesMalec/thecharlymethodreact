@@ -1,5 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { FaQuoteLeft } from "react-icons/fa";
+import { ArrowRight, Sparkles } from "lucide-react";
 import logo from "../images/logo.png";
 import logoNoText from "../images/logo-notext.png";
 import AboutText from "./AboutText";
@@ -7,16 +9,28 @@ import Human from "./Human";
 
 const About = () => {
   return (
-    <section id="about" className="py-12 landscape:py-10 sm:py-20 lg:py-28 bg-white scroll-mt-20 relative overflow-hidden">
+    <div className="py-12 sm:py-16 lg:py-20 bg-white min-h-screen relative overflow-hidden">
       {/* Decorative blur elements for visual warmth */}
-      <div className="absolute -top-10 -right-10 w-72 h-72 glow-blob-secondary rounded-full filter blur-2xl opacity-40 pointer-events-none" />
+      <div className="absolute -top-10 -right-10 w-80 h-80 glow-blob-secondary rounded-full filter blur-3xl opacity-30 pointer-events-none" />
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-8 sm:mb-12 text-center text-primary tracking-tight">
-          About Me & My Approach
-        </h2>
+        
+        {/* Page Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
+            <Sparkles className="w-4 h-4 text-secondary" />
+            <span>Real-World Leadership & Empathy</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
+            About Me & My Approach
+          </h1>
+          <p className="mt-3 text-base sm:text-lg text-gray-600 font-light leading-relaxed">
+            Coaching is a partnership between two people. Here is who I am, what I stand for, and how we will work together.
+          </p>
+        </div>
 
-        <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 mb-12 sm:mb-16">
+        {/* Bio & Coach Card */}
+        <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 mb-14 sm:mb-18">
           <AboutText />
           
           <div className="lg:w-1/2 flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-amber-50/60 via-white to-blue-50/30 rounded-3xl border border-amber-100 shadow-lg relative overflow-hidden">
@@ -78,24 +92,17 @@ const About = () => {
         <Human />
 
         {/* CTA below HUMAN section */}
-        <div className="text-center mt-8 sm:mt-12">
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              const element = document.getElementById('contact');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                window.history.pushState(null, '', '#contact');
-              }
-            }}
-            className="inline-flex items-center justify-center bg-primary text-white px-8 py-3.5 rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:shadow-xl transition transform hover:-translate-y-0.5 min-h-[48px] cursor-pointer"
+        <div className="text-center mt-12 sm:mt-16 pt-8 border-t border-gray-100">
+          <NavLink
+            to="/contact"
+            className="inline-flex items-center justify-center space-x-2 bg-primary text-white px-8 py-3.5 rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:shadow-xl transition transform hover:-translate-y-0.5 min-h-[48px] cursor-pointer"
           >
-            Let’s Talk About What’s on Your Mind
-          </a>
+            <span>Let’s Talk About What’s on Your Mind</span>
+            <ArrowRight className="w-5 h-5" />
+          </NavLink>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

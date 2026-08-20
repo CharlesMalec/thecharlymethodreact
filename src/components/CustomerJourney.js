@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Coffee, Compass, Target, Award, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 
 const steps = [
@@ -84,32 +85,23 @@ const CustomerJourney = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const currentStep = steps[activeStepIndex];
 
-  const scrollToContact = (e) => {
-    e.preventDefault();
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.pushState(null, '', '#contact');
-    }
-  };
-
   return (
-    <section id="journey" className="py-12 landscape:py-10 sm:py-20 lg:py-28 bg-white scroll-mt-20 relative overflow-hidden">
+    <div className="py-12 sm:py-16 lg:py-20 bg-white min-h-screen relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-1/4 w-72 h-72 glow-blob-secondary rounded-full filter blur-3xl opacity-30 pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-72 h-72 glow-blob-secondary rounded-full filter blur-3xl opacity-25 pointer-events-none" />
       <div className="absolute bottom-0 left-1/3 w-80 h-80 glow-blob-primary rounded-full filter blur-3xl opacity-20 pointer-events-none" />
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 landscape:mb-6 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
             <Sparkles className="w-4 h-4 text-secondary" />
             <span>Clear & Transparent Process</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
             Your Journey With Me
-          </h2>
+          </h1>
           <p className="mt-3 text-base sm:text-lg text-gray-600 leading-relaxed font-light">
             No endless commitments or hidden surprises. Here is how we turn doubts into concrete, confident actions step by step.
           </p>
@@ -182,9 +174,9 @@ const CustomerJourney = () => {
                   </span>
                   <span className="text-xs font-mono text-gray-400">Step {currentStep.number} of 04</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-primary">
+                <h2 className="text-2xl sm:text-3xl font-bold text-primary">
                   {currentStep.title}
-                </h3>
+                </h2>
                 <p className="text-sm sm:text-base text-gray-500 font-medium">
                   {currentStep.subtitle}
                 </p>
@@ -211,14 +203,14 @@ const CustomerJourney = () => {
           {/* Description & Key Details */}
           <div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
             <div>
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">What happens in this step</h4>
+              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">What happens in this step</h3>
               <p className="text-gray-700 text-base sm:text-lg leading-relaxed font-light">
                 {currentStep.description}
               </p>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Key outcomes & deliverables</h4>
+              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Key outcomes & deliverables</h3>
               <ul className="space-y-2.5">
                 {currentStep.details.map((detail, index) => (
                   <li key={index} className="flex items-start space-x-3 text-sm sm:text-base text-gray-700">
@@ -259,20 +251,19 @@ const CustomerJourney = () => {
               </button>
             </div>
 
-            <a
-              href="#contact"
-              onClick={scrollToContact}
+            <NavLink
+              to="/contact"
               className="w-full sm:w-auto px-6 py-3.5 bg-primary text-white text-sm sm:text-base font-semibold rounded-full shadow-lg hover:bg-indigo-700 hover:shadow-xl transition flex items-center justify-center space-x-2 min-h-[48px] cursor-pointer"
             >
               <span>Book Your Free 60-Min Conversation</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </NavLink>
           </div>
 
         </div>
 
       </div>
-    </section>
+    </div>
   );
 };
 

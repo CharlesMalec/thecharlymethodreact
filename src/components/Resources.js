@@ -130,7 +130,7 @@ const Resources = () => {
                             <p className="leading-relaxed">
                                 Let's translate these tools into action for your specific career or team. Contact me to start a conversation.
                             </p>
-                            <NavLink to="/#contact" className="inline-block mt-3 text-secondary font-bold hover:underline">
+                            <NavLink to="/contact" className="inline-block mt-3 text-secondary font-bold hover:underline">
                                 Get in touch &rarr;
                             </NavLink>
                         </div>

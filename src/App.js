@@ -2,40 +2,23 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Home from './components/Home';
 import About from './components/About';
 import CustomerJourney from './components/CustomerJourney';
 import Services from './components/Services';
 import Books from './components/Books';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 import Resources from './components/Resources';
+import Contact from './components/Contact';
 import ThankYou from './components/ThankYou';
+import Footer from './components/Footer';
 
-function ScrollToHash() {
-  const { pathname, hash } = useLocation();
+// Automatically scrolls window to top whenever the pathname changes
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const scrollToTarget = () => {
-      if (hash) {
-        const id = hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          // Retry briefly if element is mounting
-          setTimeout(() => {
-            const el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 200);
-        }
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    };
-
-    scrollToTarget();
-  }, [pathname, hash]);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
 
   return null;
 }
@@ -43,32 +26,25 @@ function ScrollToHash() {
 function App() {
   return (
     <Router>
-      <ScrollToHash />
-      <div className="text-gray-800 bg-[#f4f7f9]">
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen text-gray-800 bg-[#f8fafc] selection:bg-amber-100 selection:text-amber-900">
         <Header />
-        <main>
+        <main className="flex-grow">
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <About />
-                <CustomerJourney />
-                <Services />
-                <Books />
-                <Contact />
-              </>
-            } />
-            {/* Redirect old standalone sub-pages to homepage sections with anchors */}
-            <Route path="/about" element={<Navigate to="/#about" replace />} />
-            <Route path="/journey" element={<Navigate to="/#journey" replace />} />
-            <Route path="/services" element={<Navigate to="/#services" replace />} />
-            <Route path="/books" element={<Navigate to="/#books" replace />} />
-            <Route path="/contact" element={<Navigate to="/#contact" replace />} />
-            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/journey" element={<CustomerJourney />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/books" element={<Books />} />
             <Route path="/resources" element={<Resources />} />
-            {/* Redirect legacy material route to the new Resources view */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            
+            {/* Legacy alias redirects */}
             <Route path="/material" element={<Navigate to="/resources" replace />} />
-            {/* Fallback route for any other legacy paths */}
+            <Route path="/toolbox" element={<Navigate to="/resources" replace />} />
+            
+            {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

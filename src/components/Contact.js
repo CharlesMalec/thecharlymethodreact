@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { Coffee, Send, Lock } from "lucide-react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -47,25 +48,29 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-12 landscape:py-10 sm:py-20 lg:py-28 bg-gray-50 scroll-mt-20">
-      <div className="container mx-auto px-4 max-w-3xl text-center">
+    <div className="py-12 sm:py-16 lg:py-20 bg-gray-50/70 min-h-screen relative overflow-hidden">
+      <div className="container mx-auto px-4 max-w-3xl text-center relative z-10">
+        
         {/* ---------- TITLE ---------- */}
-        <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1 rounded-full text-xs sm:text-sm font-semibold mb-3">
-          <span>☕ First 60 Minutes Free</span>
+        <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
+          <Coffee className="w-4 h-4 text-secondary" />
+          <span>First 60-Minute Conversation Free</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 text-primary tracking-tight">
+        
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 text-primary tracking-tight">
           Let’s Start a Conversation
-        </h2>
+        </h1>
 
         {/* ---------- INTRO TEXT ---------- */}
         <p className="text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-          Whether you are facing a difficult decision, looking to grow in your career, or just curious about how we can work together, I’d love to hear from you. Every conversation is confidential, friendly, and focused entirely on you.
+          Whether you are facing a difficult personal decision, looking to grow in your leadership role, or curious about the method, I’d love to hear from you. 
+          No sales pitch, completely confidential.
         </p>
 
         {/* ---------- CONTACT FORM ---------- */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-3xl p-6 sm:p-10 text-left border border-gray-100"
+          className="bg-white shadow-xl rounded-3xl p-6 sm:p-10 text-left border border-gray-200/80"
         >
           {/* Name field */}
           <div className="mb-5 sm:mb-6">
@@ -105,7 +110,7 @@ const Contact = () => {
             <textarea
               id="message"
               name="message"
-              placeholder="Tell me a bit about what is on your mind or what you are trying to solve..."
+              placeholder="Tell me a bit about what is on your mind or what you are trying to resolve..."
               className="w-full px-4 py-3 sm:py-3.5 text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
               rows="4"
               required
@@ -129,23 +134,31 @@ const Contact = () => {
                 <span>Sending Message...</span>
               </>
             ) : (
-              <span>Send Message & Book Virtual Coffee</span>
+              <>
+                <Send className="w-4 h-4" />
+                <span>Send Message & Book Virtual Coffee</span>
+              </>
             )}
           </button>
+
+          <div className="mt-4 flex items-center justify-center space-x-1.5 text-xs text-gray-400">
+            <Lock className="w-3.5 h-3.5" />
+            <span>Your information remains strictly confidential.</span>
+          </div>
         </form>
 
         {/* ---------- FOOTER TEXT ---------- */}
         <p className="text-gray-500 mt-6 text-xs sm:text-sm">
-          I respond personally within 24 hours — let’s start the conversation.
+          I respond personally within 24 hours.
         </p>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-6">
           <Link to="/" className="text-primary hover:text-secondary font-semibold text-sm">
             ← Back to Home
           </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
