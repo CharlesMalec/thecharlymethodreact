@@ -92,13 +92,13 @@ const Services = () => {
                         <div className="pt-5 border-t border-gray-100 text-xs sm:text-sm text-gray-700">
                             <p className="font-semibold text-primary mb-1">👥 Practical alignment support</p>
                             <p className="text-gray-500">Tailored to your team size and everyday operational needs.</p>
-                            <p className="mt-1 font-bold text-secondary">Pricing: On demand</p>
+                            <p className="mt-1 font-bold text-secondary">Follow-ups: 100€ / hour</p>
 
                             <NavLink
                                 to="/contact"
                                 className="mt-4 w-full py-2.5 px-4 bg-white text-primary border border-primary/30 hover:border-primary text-xs sm:text-sm font-semibold rounded-full hover:bg-gray-50 transition flex items-center justify-center space-x-1.5 min-h-[44px] cursor-pointer"
                             >
-                                <span>Inquire for Team</span>
+                                <span>Book Session</span>
                                 <ArrowRight className="w-4 h-4" />
                             </NavLink>
                         </div>

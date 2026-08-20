@@ -38,7 +38,7 @@ const steps = [
       "Define 2 to 3 clear, realistic milestones for your coaching"
     ],
     duration: "1 to 2 sessions",
-    cost: "Included in standard rate",
+    cost: "100€ / hour",
     format: "Interactive Roadmap"
   },
   {
@@ -57,7 +57,7 @@ const steps = [
       "Practical exercises for team management or career transitions"
     ],
     duration: "Flexible (1 to 6 months)",
-    cost: "100€ / hour (or Custom Team)",
+    cost: "100€ / hour",
     format: "Bi-weekly / Monthly"
   },
   {

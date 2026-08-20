@@ -121,7 +121,7 @@ const Home = () => {
                 </p>
               </div>
               <div>
-                <div className="text-xs font-semibold text-secondary mb-3">👥 Custom format • On demand</div>
+                <div className="text-xs font-semibold text-secondary mb-3">👥 Custom format • 100€/hr</div>
                 <NavLink
                   to="/services"
                   className="inline-flex items-center space-x-1.5 text-sm font-bold text-primary hover:text-secondary transition"
