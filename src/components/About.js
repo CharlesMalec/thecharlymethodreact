@@ -2,12 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaQuoteLeft } from "react-icons/fa";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 import logo from "../images/logo.png";
 import logoNoText from "../images/logo-notext.png";
 import AboutText from "./AboutText";
 import Human from "./Human";
 
 const About = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="py-12 sm:py-16 lg:py-20 bg-white min-h-screen relative overflow-hidden">
       {/* Decorative blur elements for visual warmth */}
@@ -19,13 +22,13 @@ const About = () => {
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
             <Sparkles className="w-4 h-4 text-secondary" />
-            <span>Real-World Leadership & Empathy</span>
+            <span>{t.about.badge}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
-            About Me & My Approach
+            {t.about.title}
           </h1>
           <p className="mt-3 text-base sm:text-lg text-gray-600 font-light leading-relaxed">
-            Coaching is a partnership between two people. Here is who I am, what I stand for, and how we will work together.
+            {t.about.subtitle}
           </p>
         </div>
 
@@ -49,30 +52,27 @@ const About = () => {
                       e.target.src = logoNoText;
                     }}
                   />
-                  <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white" title="Available for 1-on-1 sessions" />
+                  <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white" title="Disponible pour les sessions" />
                 </div>
 
                 <div>
                   <h3 className="font-extrabold text-xl sm:text-2xl text-primary">Charly</h3>
-                  <p className="text-xs sm:text-sm font-semibold text-secondary mb-1.5">Coach & Career Mentor</p>
+                  <p className="text-xs sm:text-sm font-semibold text-secondary mb-1.5">{t.about.coachRole}</p>
                   <span className="inline-block bg-amber-100/90 text-amber-900 border border-amber-300/80 text-[11px] font-semibold px-3 py-0.5 rounded-full shadow-2xs">
-                    10+ Yrs Management & Leadership
+                    {t.about.experiencePill}
                   </span>
                 </div>
               </div>
 
               {/* Personal Quote */}
               <p className="text-gray-700 italic leading-relaxed text-base sm:text-lg">
-                "I believe coaching is simply a real, high-quality conversation between two human beings. 
-                There are no generic consulting templates here. I am here to truly listen, share my genuine 
-                professional experience, and support you in finding your own path."
+                {t.about.personalQuote}
               </p>
 
               <div className="p-4 bg-white/90 rounded-2xl border border-blue-100 shadow-2xs text-xs sm:text-sm text-gray-600">
-                <p className="font-semibold text-primary mb-1">💬 Human-Centric Guarantee</p>
+                <p className="font-semibold text-primary mb-1">{t.about.guaranteeTitle}</p>
                 <p className="text-xs text-gray-600 leading-relaxed">
-                  Coaching is never about rigid formulas—it is about <strong>your challenges, your career, and your growth</strong>. 
-                  Let's explore what's possible together.
+                  {t.about.guaranteeText}
                 </p>
               </div>
             </div>
@@ -97,7 +97,7 @@ const About = () => {
             to="/contact"
             className="inline-flex items-center justify-center space-x-2 bg-primary text-white px-8 py-3.5 rounded-full text-base sm:text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:shadow-xl transition transform hover:-translate-y-0.5 min-h-[48px] cursor-pointer"
           >
-            <span>Let’s Talk About What’s on Your Mind</span>
+            <span>{t.about.ctaButton}</span>
             <ArrowRight className="w-5 h-5" />
           </NavLink>
         </div>

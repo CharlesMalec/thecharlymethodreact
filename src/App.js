@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './index.css';
+import { LanguageProvider } from './context/LanguageContext';
 import Header from './components/Header';
 import Home from './components/Home';
 import About from './components/About';
@@ -25,32 +26,34 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen text-gray-800 bg-[#f8fafc] selection:bg-amber-100 selection:text-amber-900">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/journey" element={<CustomerJourney />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            
-            {/* Legacy alias redirects */}
-            <Route path="/material" element={<Navigate to="/resources" replace />} />
-            <Route path="/toolbox" element={<Navigate to="/resources" replace />} />
-            
-            {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen text-gray-800 bg-[#f8fafc] selection:bg-amber-100 selection:text-amber-900">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/journey" element={<CustomerJourney />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/books" element={<Books />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/thank-you" element={<ThankYou />} />
+              
+              {/* Legacy alias redirects */}
+              <Route path="/material" element={<Navigate to="/resources" replace />} />
+              <Route path="/toolbox" element={<Navigate to="/resources" replace />} />
+              
+              {/* Fallback route */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </LanguageProvider>
   );
 }
 

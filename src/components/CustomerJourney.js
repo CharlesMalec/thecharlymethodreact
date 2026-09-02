@@ -1,88 +1,75 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Coffee, Compass, Target, Award, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
-
-const steps = [
-  {
-    number: "01",
-    id: "discovery",
-    title: "1. First Conversation",
-    subtitle: "Virtual Coffee (60 Min)",
-    badge: "100% Free & Confidential",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    icon: Coffee,
-    iconBg: "bg-amber-100 text-amber-700",
-    description: "A warm, informal 60-minute chat over coffee or video call. No sales pressure, no complex diagnostic forms.",
-    details: [
-      "Share what is currently on your mind or causing frustration",
-      "We test our mutual connection and communication style",
-      "You get immediate, fresh perspective without any obligation"
-    ],
-    duration: "60 minutes",
-    cost: "Free (0€)",
-    format: "Online Video / Phone"
-  },
-  {
-    number: "02",
-    id: "clarity",
-    title: "2. Deep Alignment",
-    subtitle: "The HUMAN Framework",
-    badge: "Clarity & Strategy",
-    badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
-    icon: Compass,
-    iconBg: "bg-blue-100 text-blue-700",
-    description: "We map out your choices using the HUMAN blueprint (Hear, Understand, Meaning, Align, Nurture).",
-    details: [
-      "Identify core values and unblock decision paralysis",
-      "Weigh personal and professional trade-offs clearly",
-      "Define 2 to 3 clear, realistic milestones for your coaching"
-    ],
-    duration: "1 to 2 sessions",
-    cost: "100€ / hour",
-    format: "Interactive Roadmap"
-  },
-  {
-    number: "03",
-    id: "coaching",
-    title: "3. Action & Coaching",
-    subtitle: "Personalized Support",
-    badge: "Execution & Progress",
-    badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
-    icon: Target,
-    iconBg: "bg-amber-100 text-amber-700",
-    description: "Regular coaching sessions tailored to your pace. Real-life scenarios, practical tools, and active feedback.",
-    details: [
-      "Bi-weekly or monthly 1-on-1 sessions (100€/hr)",
-      "Continuous asynchronous messaging support between sessions",
-      "Practical exercises for team management or career transitions"
-    ],
-    duration: "Flexible (1 to 6 months)",
-    cost: "100€ / hour",
-    format: "Bi-weekly / Monthly"
-  },
-  {
-    number: "04",
-    id: "autonomy",
-    title: "4. Lasting Autonomy",
-    subtitle: "Sustainable Growth",
-    badge: "Long-Term Impact",
-    badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
-    icon: Award,
-    iconBg: "bg-purple-100 text-purple-700",
-    description: "You leave with complete clarity, anchored confidence, and reusable frameworks to lead yourself and others.",
-    details: [
-      "Final review of milestones and key personal breakthroughs",
-      "Lifetime access to recommended reading and management templates",
-      "Open door for optional tune-up sessions whenever needed"
-    ],
-    duration: "Ongoing autonomy",
-    cost: "Included",
-    format: "Self-sustaining habits"
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const CustomerJourney = () => {
+  const { t } = useLanguage();
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+
+  const steps = [
+    {
+      number: "01",
+      id: "discovery",
+      title: t.journey.step1.title,
+      subtitle: t.journey.step1.subtitle,
+      badge: t.journey.step1.badge,
+      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      icon: Coffee,
+      iconBg: "bg-amber-100 text-amber-700",
+      description: t.journey.step1.description,
+      details: t.journey.step1.details,
+      duration: t.journey.step1.duration,
+      cost: t.journey.step1.cost,
+      format: t.journey.step1.format
+    },
+    {
+      number: "02",
+      id: "clarity",
+      title: t.journey.step2.title,
+      subtitle: t.journey.step2.subtitle,
+      badge: t.journey.step2.badge,
+      badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+      icon: Compass,
+      iconBg: "bg-blue-100 text-blue-700",
+      description: t.journey.step2.description,
+      details: t.journey.step2.details,
+      duration: t.journey.step2.duration,
+      cost: t.journey.step2.cost,
+      format: t.journey.step2.format
+    },
+    {
+      number: "03",
+      id: "coaching",
+      title: t.journey.step3.title,
+      subtitle: t.journey.step3.subtitle,
+      badge: t.journey.step3.badge,
+      badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+      icon: Target,
+      iconBg: "bg-amber-100 text-amber-700",
+      description: t.journey.step3.description,
+      details: t.journey.step3.details,
+      duration: t.journey.step3.duration,
+      cost: t.journey.step3.cost,
+      format: t.journey.step3.format
+    },
+    {
+      number: "04",
+      id: "autonomy",
+      title: t.journey.step4.title,
+      subtitle: t.journey.step4.subtitle,
+      badge: t.journey.step4.badge,
+      badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
+      icon: Award,
+      iconBg: "bg-purple-100 text-purple-700",
+      description: t.journey.step4.description,
+      details: t.journey.step4.details,
+      duration: t.journey.step4.duration,
+      cost: t.journey.step4.cost,
+      format: t.journey.step4.format
+    }
+  ];
+
   const currentStep = steps[activeStepIndex];
 
   return (
@@ -97,13 +84,13 @@ const CustomerJourney = () => {
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
             <Sparkles className="w-4 h-4 text-secondary" />
-            <span>Clear & Transparent Process</span>
+            <span>{t.journey.badge}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
-            Your Journey With Me
+            {t.journey.title}
           </h1>
           <p className="mt-3 text-base sm:text-lg text-gray-600 leading-relaxed font-light">
-            No endless commitments or hidden surprises. Here is how we turn doubts into concrete, confident actions step by step.
+            {t.journey.subtitle}
           </p>
         </div>
 
@@ -126,7 +113,7 @@ const CustomerJourney = () => {
                   <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-md ${
                     isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-700'
                   }`}>
-                    Step {step.number}
+                    {t.journey.stepNumber} {step.number}
                   </span>
                   <Icon className={`w-5 h-5 ${isActive ? 'text-amber-300' : 'text-gray-400'}`} />
                 </div>
@@ -172,7 +159,7 @@ const CustomerJourney = () => {
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${currentStep.badgeColor}`}>
                     {currentStep.badge}
                   </span>
-                  <span className="text-xs font-mono text-gray-400">Step {currentStep.number} of 04</span>
+                  <span className="text-xs font-mono text-gray-400">{t.journey.stepNumber} {currentStep.number} / 04</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-primary">
                   {currentStep.title}
@@ -186,15 +173,15 @@ const CustomerJourney = () => {
             {/* Quick Metrics */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 bg-white/90 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border border-gray-200/70 text-center text-xs sm:text-sm">
               <div className="px-2">
-                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Duration</span>
+                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">{t.journey.durationLabel}</span>
                 <span className="font-bold text-primary truncate block mt-0.5">{currentStep.duration}</span>
               </div>
               <div className="px-2 border-x border-gray-200">
-                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Cost</span>
+                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">{t.journey.costLabel}</span>
                 <span className="font-bold text-secondary truncate block mt-0.5">{currentStep.cost}</span>
               </div>
               <div className="px-2">
-                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">Format</span>
+                <span className="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold">{t.journey.formatLabel}</span>
                 <span className="font-bold text-gray-700 truncate block mt-0.5">{currentStep.format}</span>
               </div>
             </div>
@@ -203,14 +190,14 @@ const CustomerJourney = () => {
           {/* Description & Key Details */}
           <div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
             <div>
-              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">What happens in this step</h3>
+              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">{t.journey.whatHappens}</h3>
               <p className="text-gray-700 text-base sm:text-lg leading-relaxed font-light">
                 {currentStep.description}
               </p>
             </div>
 
             <div>
-              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Key outcomes & deliverables</h3>
+              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">{t.journey.deliverables}</h3>
               <ul className="space-y-2.5">
                 {currentStep.details.map((detail, index) => (
                   <li key={index} className="flex items-start space-x-3 text-sm sm:text-base text-gray-700">
@@ -230,7 +217,7 @@ const CustomerJourney = () => {
                 onClick={() => setActiveStepIndex((prev) => Math.max(0, prev - 1))}
                 className="px-4 py-2 text-xs sm:text-sm font-semibold text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:text-primary transition min-h-[44px] cursor-pointer"
               >
-                ← Previous Step
+                {t.journey.prevStep}
               </button>
               <div className="flex space-x-1">
                 {steps.map((_, i) => (
@@ -247,7 +234,7 @@ const CustomerJourney = () => {
                 onClick={() => setActiveStepIndex((prev) => Math.min(steps.length - 1, prev + 1))}
                 className="px-4 py-2 text-xs sm:text-sm font-semibold text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:text-primary transition min-h-[44px] cursor-pointer"
               >
-                Next Step →
+                {t.journey.nextStep}
               </button>
             </div>
 
@@ -255,7 +242,7 @@ const CustomerJourney = () => {
               to="/contact"
               className="w-full sm:w-auto px-6 py-3.5 bg-primary text-white text-sm sm:text-base font-semibold rounded-full shadow-lg hover:bg-indigo-700 hover:shadow-xl transition flex items-center justify-center space-x-2 min-h-[48px] cursor-pointer"
             >
-              <span>Book Your Free 60-Min Conversation</span>
+              <span>{t.journey.ctaButton}</span>
               <ArrowRight className="w-4 h-4" />
             </NavLink>
           </div>

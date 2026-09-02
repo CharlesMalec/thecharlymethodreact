@@ -1,63 +1,65 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FileText, Video, GraduationCap, Download, ExternalLink, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import humanTemplate from '../documents/HUMAN_1to1_Template.pdf';
 import humanQuickScan from '../documents/HUMAN - Quick Scan.pdf';
 
 const Resources = () => {
+    const { t } = useLanguage();
     const [activeTab, setActiveTab] = useState('toolbox');
 
     const tabs = [
         {
             id: 'toolbox',
-            name: 'Management ToolBox',
+            name: t.resources.tabToolbox,
             icon: FileText,
-            description: 'Actionable worksheets and templates designed to improve communication and build trust in your team.',
+            description: t.resources.tabToolboxDesc,
             content: [
                 { 
                     name: 'HUMAN - 1 to 1 Template', 
-                    type: 'PDF Template',
-                    description: 'A structured template for running highly effective, person-centered 1-to-1 meetings.',
+                    type: t.resources.docTypePdf,
+                    description: t.resources.doc1Desc,
                     url: humanTemplate 
                 },
                 { 
                     name: 'HUMAN - Quick Scan', 
-                    type: 'Assessment Tool',
-                    description: 'A simple scorecard to scan and assess team health across key human dimensions.',
+                    type: t.resources.docTypeAssessment,
+                    description: t.resources.doc2Desc,
                     url: humanQuickScan 
                 },
             ],
         },
         {
             id: 'videos-internet',
-            name: 'Inspirational Videos',
+            name: t.resources.tabVideos,
             icon: Video,
-            description: 'Curated speeches and talks on leadership, human-centered coaching, and listening.',
+            description: t.resources.tabVideosDesc,
             content: [
                 { 
                     name: 'Why good leaders make you feel safe', 
                     type: 'Simon Sinek (TED)',
-                    description: 'A deep dive into how trust is built by creating a circle of safety within teams.',
+                    description: t.resources.video1Desc,
                     url: 'https://www.youtube.com/watch?v=lmyZMtPVodo' 
                 },
                 { 
                     name: 'The Power of Listening', 
                     type: 'William Ury (TEDx)',
-                    description: 'Learn how active listening helps resolve deep conflicts and build genuine consensus.',
+                    description: t.resources.video2Desc,
                     url: 'https://www.youtube.com/watch?v=saXfavo1OQo' 
                 },
             ],
         },
         {
             id: 'video-courses',
-            name: 'Video Courses',
+            name: t.resources.tabCourses,
             icon: GraduationCap,
-            description: 'Guided masterclasses and courses to sharpen your day-to-day leadership and coaching skills.',
+            description: t.resources.tabCoursesDesc,
             content: [
                 { 
                     name: 'Course: Hear Actively', 
                     type: 'Video Masterclass',
-                    description: 'A comprehensive, practical guide to listening actively, handling resistance, and mentoring with empathy.',
+                    description: t.resources.course1Desc,
                     url: 'https://www.youtube.com/embed/J5VsOeHMSvw?si=wnpffwYz9akor-fD' 
                 },
             ],
@@ -81,20 +83,20 @@ const Resources = () => {
                 <div className="mb-8">
                     <NavLink to="/" className="inline-flex items-center space-x-2 text-gray-500 hover:text-primary transition font-medium">
                         <ArrowLeft className="w-4 h-4" />
-                        <span>Back to Home</span>
+                        <span>{t.resources.backHome}</span>
                     </NavLink>
                 </div>
 
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="text-secondary font-semibold text-sm tracking-wider uppercase bg-amber-50 px-3 py-1.5 rounded-full border border-amber-100">
-                        The Charly Method Library
+                    <span className="text-secondary font-semibold text-sm tracking-wider uppercase bg-amber-50 px-3.5 py-1.5 rounded-full border border-amber-100">
+                        {t.resources.badge}
                     </span>
                     <h1 className="text-4xl md:text-5xl font-extrabold text-primary mt-4 mb-6">
-                        Coaching & Leadership Resources
+                        {t.resources.title}
                     </h1>
                     <p className="text-xl text-gray-600 font-light leading-relaxed">
-                        Practical templates, courses, and inspirational videos to help you find clarity, grow in your career, and support your team. Completely free to access and download.
+                        {t.resources.subtitle}
                     </p>
                 </div>
 
@@ -102,7 +104,7 @@ const Resources = () => {
                     {/* Sidebar navigation */}
                     <aside className="w-full lg:w-80 bg-white p-6 rounded-3xl border border-gray-100 shadow-md flex flex-col justify-between">
                         <div>
-                            <h2 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-6">Categories</h2>
+                            <h2 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-6">{t.resources.categories}</h2>
                             <ul className="space-y-3">
                                 {tabs.map(tab => {
                                     const Icon = tab.icon;
@@ -110,7 +112,7 @@ const Resources = () => {
                                         <li key={tab.id}>
                                             <button
                                                 onClick={() => setActiveTab(tab.id)}
-                                                className={`w-full flex items-center space-x-3 py-3 px-4 rounded-2xl transition duration-300 border text-left ${activeTab === tab.id
+                                                className={`w-full flex items-center space-x-3 py-3 px-4 rounded-2xl transition duration-300 border text-left cursor-pointer ${activeTab === tab.id
                                                     ? 'bg-primary border-primary text-white font-semibold shadow-md'
                                                     : 'bg-white border-transparent text-gray-700 hover:bg-gray-50 hover:text-primary'
                                                     }`}
@@ -126,12 +128,12 @@ const Resources = () => {
 
                         {/* Aesthetic Footer Widget in Sidebar */}
                         <div className="mt-12 p-5 bg-gradient-to-br from-blue-50/60 to-amber-50/40 rounded-2xl border border-blue-50 text-xs text-gray-600">
-                            <p className="font-semibold text-primary mb-1">💡 Need customized support?</p>
+                            <p className="font-semibold text-primary mb-1">{t.resources.sidebarWidgetTitle}</p>
                             <p className="leading-relaxed">
-                                Let's translate these tools into action for your specific career or team. Contact me to start a conversation.
+                                {t.resources.sidebarWidgetDesc}
                             </p>
-                            <NavLink to="/contact" className="inline-block mt-3 text-secondary font-bold hover:underline">
-                                Get in touch &rarr;
+                            <NavLink to="/contact" className="inline-block mt-3 text-secondary font-bold hover:underline cursor-pointer">
+                                {t.resources.sidebarWidgetBtn} &rarr;
                             </NavLink>
                         </div>
                     </aside>
@@ -185,9 +187,9 @@ const Resources = () => {
                                                                 href={item.url}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                className="inline-flex items-center space-x-1.5 mt-3 text-xs text-secondary hover:underline font-semibold"
+                                                                className="inline-flex items-center space-x-1.5 mt-3 text-xs text-secondary hover:underline font-semibold cursor-pointer"
                                                             >
-                                                                <span>Watch on YouTube</span>
+                                                                <span>{t.resources.watchYoutube}</span>
                                                                 <ExternalLink className="w-3 h-3" />
                                                             </a>
                                                         )}
@@ -198,10 +200,10 @@ const Resources = () => {
                                                         download
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center space-x-2 px-4 py-2.5 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 hover:shadow transition duration-300"
+                                                        className="inline-flex items-center space-x-2 px-4 py-2.5 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 hover:shadow transition duration-300 cursor-pointer"
                                                     >
                                                         <Download className="w-4 h-4 text-secondary" />
-                                                        <span>Download Template</span>
+                                                        <span>{t.resources.downloadTemplate}</span>
                                                     </a>
                                                 )}
                                             </div>
@@ -211,7 +213,7 @@ const Resources = () => {
                             </div>
                         ) : (
                             <div className="text-center py-12">
-                                <p className="text-gray-500">No content available for this category yet.</p>
+                                <p className="text-gray-500">{t.resources.noContent}</p>
                             </div>
                         )}
                     </main>

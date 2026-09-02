@@ -1,9 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { User, Users, ClipboardList, Compass, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import logoNoText from '../images/logo-notext.png';
 
 const Home = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-[#f8fafc] text-gray-800 min-h-screen">
       {/* 1. HERO SECTION */}
@@ -15,18 +18,17 @@ const Home = () => {
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-amber-200/80 shadow-xs px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-secondary mb-6">
-            <span>☕ First 60-Minute Conversation Free</span>
+            <span>{t.common.freeBadge}</span>
             <span className="text-gray-300">•</span>
-            <span className="text-gray-600 font-normal">No Catch, No Pressure</span>
+            <span className="text-gray-600 font-normal">{t.common.noCatch}</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-primary leading-tight tracking-tight mb-6">
-            Let's Find Clarity in Your Big Decisions.
+            {t.hero.title}
           </h1>
 
           <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-8 max-w-2xl mx-auto font-normal leading-relaxed">
-            Facing a difficult personal crossroad, or trying to find your footing in your management career? 
-            I offer straightforward, empathetic coaching grounded in real-world experience, to help you move forward with confidence.
+            {t.hero.subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
@@ -34,14 +36,14 @@ const Home = () => {
               to="/contact"
               className="w-full sm:w-auto px-8 py-3.5 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 hover:shadow-xl transition duration-200 flex items-center justify-center text-base cursor-pointer"
             >
-              Start a Free Conversation
+              {t.common.startConversation}
             </NavLink>
 
             <NavLink
               to="/about"
               className="w-full sm:w-auto px-8 py-3.5 bg-white text-primary border-2 border-primary/20 hover:border-primary font-semibold rounded-full shadow-xs hover:bg-gray-50 transition duration-200 flex items-center justify-center text-base cursor-pointer"
             >
-              Explore My Approach
+              {t.common.exploreApproach}
             </NavLink>
           </div>
         </div>
@@ -52,13 +54,13 @@ const Home = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
             <span className="text-secondary font-bold text-xs uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
-              Personalized Support
+              {t.home.pillarsBadge}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-primary mt-3 mb-3">
-              How I Can Help You
+              {t.home.pillarsTitle}
             </h2>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              No generic consulting templates or rigid formulas. Three focused ways to work together depending on where you are.
+              {t.home.pillarsSubtitle}
             </p>
           </div>
 
@@ -69,18 +71,18 @@ const Home = () => {
                 <div className="w-12 h-12 rounded-2xl bg-amber-100/80 flex items-center justify-center text-secondary mb-5">
                   <User className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-2">Life & Career Choices</h3>
+                <h3 className="text-xl font-bold text-primary mb-2">{t.home.card1Title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  Confidential, non-judgmental space to sort through difficult decisions, untangle doubts, and align actions with your true values.
+                  {t.home.card1Desc}
                 </p>
               </div>
               <div>
-                <div className="text-xs font-semibold text-secondary mb-3">☕ Free 60-min first session • 100€/hr</div>
+                <div className="text-xs font-semibold text-secondary mb-3">{t.home.card1Rate}</div>
                 <NavLink
                   to="/services"
                   className="inline-flex items-center space-x-1.5 text-sm font-bold text-primary hover:text-secondary transition"
                 >
-                  <span>Explore 1-on-1 coaching</span>
+                  <span>{t.home.card1Link}</span>
                   <ArrowRight className="w-4 h-4" />
                 </NavLink>
               </div>
@@ -92,18 +94,18 @@ const Home = () => {
                 <div className="w-12 h-12 rounded-2xl bg-blue-100/80 flex items-center justify-center text-primary mb-5">
                   <ClipboardList className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-2">Management Mentoring</h3>
+                <h3 className="text-xl font-bold text-primary mb-2">{t.home.card2Title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  Practical, hands-on mentoring for new and experienced managers. Learn to lead teams with clarity, authenticity, and less stress.
+                  {t.home.card2Desc}
                 </p>
               </div>
               <div>
-                <div className="text-xs font-semibold text-secondary mb-3">☕ Free 60-min first session • 100€/hr</div>
+                <div className="text-xs font-semibold text-secondary mb-3">{t.home.card2Rate}</div>
                 <NavLink
                   to="/services"
                   className="inline-flex items-center space-x-1.5 text-sm font-bold text-primary hover:text-secondary transition"
                 >
-                  <span>Explore management guidance</span>
+                  <span>{t.home.card2Link}</span>
                   <ArrowRight className="w-4 h-4" />
                 </NavLink>
               </div>
@@ -115,18 +117,18 @@ const Home = () => {
                 <div className="w-12 h-12 rounded-2xl bg-amber-100/80 flex items-center justify-center text-secondary mb-5">
                   <Users className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-2">Team Cohesion</h3>
+                <h3 className="text-xl font-bold text-primary mb-2">{t.home.card3Title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  Help small teams establish honest communication, resolve friction, and build deep operational trust without bureaucratic noise.
+                  {t.home.card3Desc}
                 </p>
               </div>
               <div>
-                <div className="text-xs font-semibold text-secondary mb-3">👥 Custom format • 100€/hr</div>
+                <div className="text-xs font-semibold text-secondary mb-3">{t.home.card3Rate}</div>
                 <NavLink
                   to="/services"
                   className="inline-flex items-center space-x-1.5 text-sm font-bold text-primary hover:text-secondary transition"
                 >
-                  <span>Explore team support</span>
+                  <span>{t.home.card3Link}</span>
                   <ArrowRight className="w-4 h-4" />
                 </NavLink>
               </div>
@@ -150,36 +152,35 @@ const Home = () => {
                     e.target.src = logoNoText;
                   }}
                 />
-                <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-5 h-5 rounded-full border-2 border-white" title="Available for 1-on-1 sessions" />
+                <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-5 h-5 rounded-full border-2 border-white" title="Disponible pour les sessions 1-on-1" />
               </div>
               <h3 className="text-xl font-extrabold text-primary mt-3">Charly</h3>
-              <p className="text-xs text-secondary font-semibold">Coach & Career Mentor</p>
+              <p className="text-xs text-secondary font-semibold">{t.about.coachRole}</p>
             </div>
 
             <div className="flex-1 space-y-4">
               <span className="text-secondary font-bold text-xs uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
-                The Philosophy
+                {t.home.quoteBadge}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-primary leading-snug">
-                "Coaching is simply a high-quality, honest conversation between two human beings."
+                {t.home.quoteText}
               </h2>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                With over a decade of leadership and management experience, I guide you through the <strong>HUMAN</strong> framework: 
-                Hearing actively, Understanding your uniqueness, finding Meaning in choices, Aligning with empathy, and Nurturing long-term growth.
+                {t.home.coachIntro}
               </p>
               <div className="pt-2 flex flex-wrap gap-4">
                 <NavLink
                   to="/about"
                   className="px-6 py-2.5 bg-primary text-white font-semibold text-sm rounded-full hover:bg-indigo-700 transition"
                 >
-                  Read My Story & Method
+                  {t.home.btnAbout}
                 </NavLink>
                 <NavLink
                   to="/journey"
                   className="px-6 py-2.5 bg-gray-100 text-gray-800 hover:text-primary font-semibold text-sm rounded-full hover:bg-gray-200 transition flex items-center space-x-1.5"
                 >
                   <Compass className="w-4 h-4 text-secondary" />
-                  <span>View the 4-Step Journey</span>
+                  <span>{t.home.btnJourney}</span>
                 </NavLink>
               </div>
             </div>
@@ -192,20 +193,20 @@ const Home = () => {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="p-4">
-              <div className="text-3xl font-extrabold text-primary mb-1">100%</div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Free First Session</div>
+              <div className="text-3xl font-extrabold text-primary mb-1">{t.home.stat1Number}</div>
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{t.home.stat1Label}</div>
             </div>
             <div className="p-4 border-l border-gray-100">
-              <div className="text-3xl font-extrabold text-primary mb-1">10+ Yrs</div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Leadership Experience</div>
+              <div className="text-3xl font-extrabold text-primary mb-1">{t.home.stat2Number}</div>
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{t.home.stat2Label}</div>
             </div>
             <div className="p-4 border-l border-gray-100">
-              <div className="text-3xl font-extrabold text-secondary mb-1">HUMAN™</div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Grounded Framework</div>
+              <div className="text-3xl font-extrabold text-secondary mb-1">{t.home.stat3Number}</div>
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{t.home.stat3Label}</div>
             </div>
             <div className="p-4 border-l border-gray-100">
-              <div className="text-3xl font-extrabold text-primary mb-1">0</div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Lock-in or Pressure</div>
+              <div className="text-3xl font-extrabold text-primary mb-1">{t.home.stat4Number}</div>
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{t.home.stat4Label}</div>
             </div>
           </div>
         </div>
@@ -215,16 +216,16 @@ const Home = () => {
       <section className="py-12 sm:py-16 bg-gradient-to-r from-[#0B2C54] to-[#1F4775] text-white text-center">
         <div className="container mx-auto px-4 max-w-3xl">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4">
-            Ready to Talk About What's on Your Mind?
+            {t.home.ctaTitle}
           </h2>
           <p className="text-gray-200 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
-            Let's grab a virtual coffee. 60 minutes dedicated entirely to your questions, with no sales pitch and no obligation.
+            {t.home.ctaSubtitle}
           </p>
           <NavLink
             to="/contact"
             className="inline-flex items-center space-x-2 px-8 py-3.5 bg-secondary text-slate-900 font-bold rounded-full shadow-lg hover:bg-amber-400 transition transform hover:-translate-y-0.5 text-base cursor-pointer"
           >
-            <span>Book Your Free 60-Minute Chat</span>
+            <span>{t.home.ctaButton}</span>
             <ArrowRight className="w-5 h-5" />
           </NavLink>
         </div>

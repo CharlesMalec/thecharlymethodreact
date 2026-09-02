@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { User, Users, ClipboardList, Sparkles, ArrowRight } from "lucide-react";
+import { useLanguage } from '../context/LanguageContext';
 
 const Services = () => {
+    const { t } = useLanguage();
+
     return (
         <div className="py-12 sm:py-16 lg:py-20 bg-gray-50/50 min-h-screen relative overflow-hidden">
             {/* Ambient background decoration */}
@@ -15,13 +18,13 @@ const Services = () => {
                 <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
                     <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
                         <Sparkles className="w-4 h-4 text-secondary" />
-                        <span>Tailored Offerings</span>
+                        <span>{t.services.badge}</span>
                     </div>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight">
-                        How I Can Support You
+                        {t.services.title}
                     </h1>
                     <p className="mt-3 text-base sm:text-lg text-gray-600 leading-relaxed font-light">
-                        No corporate jargon or rigid textbooks. Just honest, practical guidance tailored to your specific situation.
+                        {t.services.subtitle}
                     </p>
                 </div>
                 
@@ -32,21 +35,21 @@ const Services = () => {
                             <div className="flex items-center justify-center h-14 w-14 mb-5 bg-amber-50 rounded-2xl border border-amber-200">
                                 <User className="h-7 w-7 text-secondary" />
                             </div>
-                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">Life & Career Conversations</h2>
+                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">{t.services.service1Title}</h2>
                             <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-6">
-                                If you are facing a difficult personal decision, feeling stuck, or trying to figure out your next step, let’s talk. I offer a calm, confidential space to sort through your thoughts, weigh your choices, and find a path forward that feels genuinely right for you.
+                                {t.services.service1Desc}
                             </p>
                         </div>
                         <div className="pt-5 border-t border-gray-100 text-xs sm:text-sm text-gray-700">
-                            <p className="font-semibold text-primary mb-1">☕ Let's grab a virtual coffee</p>
-                            <p className="text-gray-500">First 60 minutes are free. No catch, no pressure.</p>
-                            <p className="mt-1 font-bold text-secondary">Follow-ups: 100€ / hour</p>
+                            <p className="font-semibold text-primary mb-1">{t.services.service1Coffee}</p>
+                            <p className="text-gray-500">{t.services.service1FreeNote}</p>
+                            <p className="mt-1 font-bold text-secondary">{t.services.service1Rate}</p>
 
                             <NavLink
                                 to="/contact"
                                 className="mt-4 w-full py-2.5 px-4 bg-primary text-white text-xs sm:text-sm font-semibold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-1.5 min-h-[44px] cursor-pointer"
                             >
-                                <span>Book Free Session</span>
+                                <span>{t.services.bookBtn}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </NavLink>
                         </div>
@@ -58,21 +61,21 @@ const Services = () => {
                             <div className="flex items-center justify-center h-14 w-14 mb-5 bg-amber-50 rounded-2xl border border-amber-200">
                                 <ClipboardList className="h-7 w-7 text-secondary" />
                             </div>
-                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">Professional & Management Support</h2>
+                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">{t.services.service2Title}</h2>
                             <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-6">
-                                Managing a team—especially if you're new to the role—can feel overwhelming. I don't offer generic corporate lectures. Instead, we'll talk through your actual day-to-day work challenges, using my real-world experience to help you lead with confidence, handle stress, and stay true to your values.
+                                {t.services.service2Desc}
                             </p>
                         </div>
                         <div className="pt-5 border-t border-gray-100 text-xs sm:text-sm text-gray-700">
-                            <p className="font-semibold text-primary mb-1">☕ Let's grab a virtual coffee</p>
-                            <p className="text-gray-500">First 60 minutes are free. No catch, no pressure.</p>
-                            <p className="mt-1 font-bold text-secondary">Follow-ups: 100€ / hour</p>
+                            <p className="font-semibold text-primary mb-1">{t.services.service2Coffee}</p>
+                            <p className="text-gray-500">{t.services.service2FreeNote}</p>
+                            <p className="mt-1 font-bold text-secondary">{t.services.service2Rate}</p>
 
                             <NavLink
                                 to="/contact"
                                 className="mt-4 w-full py-2.5 px-4 bg-primary text-white text-xs sm:text-sm font-semibold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-1.5 min-h-[44px] cursor-pointer"
                             >
-                                <span>Book Free Session</span>
+                                <span>{t.services.bookBtn}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </NavLink>
                         </div>
@@ -84,21 +87,21 @@ const Services = () => {
                             <div className="flex items-center justify-center h-14 w-14 mb-5 bg-blue-50 rounded-2xl border border-blue-100">
                                 <Users className="h-7 w-7 text-primary" />
                             </div>
-                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">Support for Teams</h2>
+                            <h2 className="text-xl sm:text-2xl text-primary font-bold mb-3">{t.services.service3Title}</h2>
                             <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-6">
-                                Having worked as a senior manager, I know how hard it can be to keep a team working well together without losing the human touch. I help small teams improve how they talk to one another, build genuine trust, and work through day-to-day friction in a straightforward, practical way.
+                                {t.services.service3Desc}
                             </p>
                         </div>
                         <div className="pt-5 border-t border-gray-100 text-xs sm:text-sm text-gray-700">
-                            <p className="font-semibold text-primary mb-1">👥 Practical alignment support</p>
-                            <p className="text-gray-500">Tailored to your team size and everyday operational needs.</p>
-                            <p className="mt-1 font-bold text-secondary">Follow-ups: 100€ / hour</p>
+                            <p className="font-semibold text-primary mb-1">{t.services.service3Header}</p>
+                            <p className="text-gray-500">{t.services.service3SubNote}</p>
+                            <p className="mt-1 font-bold text-secondary">{t.services.service3Rate}</p>
 
                             <NavLink
                                 to="/contact"
                                 className="mt-4 w-full py-2.5 px-4 bg-white text-primary border border-primary/30 hover:border-primary text-xs sm:text-sm font-semibold rounded-full hover:bg-gray-50 transition flex items-center justify-center space-x-1.5 min-h-[44px] cursor-pointer"
                             >
-                                <span>Book Session</span>
+                                <span>{t.services.bookTeamBtn}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </NavLink>
                         </div>
@@ -108,14 +111,14 @@ const Services = () => {
                 {/* Bottom Reassurance Banner */}
                 <div className="mt-12 sm:mt-16 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-primary mb-1">Unsure which format fits your needs?</h3>
-                        <p className="text-gray-600 text-sm">We can figure that out together during your free 60-minute virtual coffee.</p>
+                        <h3 className="text-lg sm:text-xl font-bold text-primary mb-1">{t.services.bannerTitle}</h3>
+                        <p className="text-gray-600 text-sm">{t.services.bannerDesc}</p>
                     </div>
                     <NavLink
                         to="/contact"
-                        className="px-6 py-3 bg-primary text-white font-semibold text-sm rounded-full hover:bg-indigo-700 transition flex-shrink-0"
+                        className="px-6 py-3 bg-primary text-white font-semibold text-sm rounded-full hover:bg-indigo-700 transition flex-shrink-0 cursor-pointer"
                     >
-                        Schedule Free Chat
+                        {t.services.bannerBtn}
                     </NavLink>
                 </div>
 

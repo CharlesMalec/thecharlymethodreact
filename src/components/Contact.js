@@ -10,10 +10,12 @@ import {
   RotateCw, 
   ExternalLink, 
   Mail, 
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown
 } from "lucide-react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useLanguage } from "../context/LanguageContext";
 
 const BOOKING_LINKS = {
   freeDiscovery: "https://calendar.app.google/tk1oDEHdN3R6oTbP8",
@@ -22,6 +24,7 @@ const BOOKING_LINKS = {
 };
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [redirect, setRedirect] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("free"); // 'free' | 'followup' | 'all'
@@ -78,15 +81,15 @@ const Contact = () => {
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center space-x-2 bg-amber-50 text-secondary border border-amber-200 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3.5 shadow-xs">
             <Coffee className="w-4 h-4 text-secondary" />
-            <span>Instant Google Calendar Booking</span>
+            <span>{t.contact.badge}</span>
           </div>
           
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight mb-4">
-            Schedule a Session or Get in Touch
+            {t.contact.title}
           </h1>
 
           <p className="text-base sm:text-lg text-gray-600 font-light leading-relaxed max-w-2xl mx-auto">
-            Book a dedicated time slot directly in my calendar below, or send a written note if you prefer to share your context first.
+            {t.contact.subtitle}
           </p>
         </div>
 
@@ -96,7 +99,7 @@ const Contact = () => {
           {/* CARD 1: NEW CLIENT / FREE DISCOVERY */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-amber-500 text-white text-[11px] font-bold uppercase tracking-wider py-1 px-3.5 rounded-bl-xl shadow-xs">
-              First Time • 100% Free
+              {t.contact.card1Pill}
             </div>
 
             <div>
@@ -105,49 +108,49 @@ const Contact = () => {
               </div>
 
               <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">
-                1. First Discovery Meeting
+                {t.contact.card1Title}
               </h2>
               
               <div className="flex items-center space-x-3 text-xs sm:text-sm font-semibold text-secondary mb-4">
                 <span className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" />
-                  <span>60 Minutes</span>
+                  <span>{t.contact.card1Duration}</span>
                 </span>
                 <span>•</span>
                 <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md border border-emerald-200">
-                  Free (0€)
+                  {t.contact.card1Cost}
                 </span>
               </div>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                A dedicated, confidential space to discuss your challenges, career crossroads, or management goals. No catch and zero sales pitch.
+                {t.contact.card1Desc}
               </p>
 
               <ul className="space-y-2 text-xs sm:text-sm text-gray-600 mb-6">
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span>1-on-1 Google Meet video call</span>
+                  <span>{t.contact.card1Point1}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span>Immediate calendar confirmation & reminder</span>
+                  <span>{t.contact.card1Point2}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span>Explore fit with the HUMAN framework</span>
+                  <span>{t.contact.card1Point3}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-2.5">
+            <div className="pt-5 border-t border-gray-100 flex flex-col items-center gap-2">
               <a
                 href={BOOKING_LINKS.freeDiscovery}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-3 px-4 bg-primary text-white font-semibold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-xs sm:text-sm shadow-sm cursor-pointer"
+                className="w-full py-3.5 px-6 bg-primary text-white font-bold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-sm shadow-md hover:shadow-lg cursor-pointer text-center"
               >
-                <span>Book Free Session</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>{t.contact.card1BookBtn}</span>
+                <ExternalLink className="w-4 h-4" />
               </a>
               <button
                 type="button"
@@ -156,9 +159,10 @@ const Contact = () => {
                   const el = document.getElementById("calendar-frame");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="py-3 px-4 bg-amber-50 text-secondary border border-amber-200 font-semibold rounded-full hover:bg-amber-100 transition text-xs sm:text-sm cursor-pointer"
+                className="w-full py-2 px-3 text-xs font-semibold text-secondary hover:text-amber-800 transition flex items-center justify-center space-x-1 cursor-pointer text-center"
               >
-                View Agenda Below ↓
+                <span>{t.contact.card1ViewAgendaBtn}</span>
+                <ChevronDown className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -166,7 +170,7 @@ const Contact = () => {
           {/* CARD 2: RETURNING CLIENT / FOLLOW-UP */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-gray-100 text-gray-600 text-[11px] font-bold uppercase tracking-wider py-1 px-3.5 rounded-bl-xl border-l border-b border-gray-200">
-              Returning Clients
+              {t.contact.card2Pill}
             </div>
 
             <div>
@@ -175,49 +179,49 @@ const Contact = () => {
               </div>
 
               <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">
-                2. Coaching Follow-up
+                {t.contact.card2Title}
               </h2>
               
               <div className="flex items-center space-x-3 text-xs sm:text-sm font-semibold text-primary mb-4">
                 <span className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" />
-                  <span>60 Minutes</span>
+                  <span>{t.contact.card2Duration}</span>
                 </span>
                 <span>•</span>
                 <span className="bg-blue-50 text-primary px-2 py-0.5 rounded-md border border-blue-200">
-                  100€ / hour
+                  {t.contact.card2Cost}
                 </span>
               </div>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                Already started your coaching journey? Book your next session to review actions, work on practical cases, or keep your momentum.
+                {t.contact.card2Desc}
               </p>
 
               <ul className="space-y-2 text-xs sm:text-sm text-gray-600 mb-6">
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span>Debrief experiments & progress</span>
+                  <span>{t.contact.card2Point1}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span>Hands-on leadership & management guidance</span>
+                  <span>{t.contact.card2Point2}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span>Standard settlement after session</span>
+                  <span>{t.contact.card2Point3}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-2.5">
+            <div className="pt-5 border-t border-gray-100 flex flex-col items-center gap-2">
               <a
                 href={BOOKING_LINKS.followUp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-3 px-4 bg-primary text-white font-semibold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-xs sm:text-sm shadow-sm cursor-pointer"
+                className="w-full py-3.5 px-6 bg-primary text-white font-bold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-sm shadow-md hover:shadow-lg cursor-pointer text-center"
               >
-                <span>Book Follow-up Session</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>{t.contact.card2BookBtn}</span>
+                <ExternalLink className="w-4 h-4" />
               </a>
               <button
                 type="button"
@@ -226,9 +230,10 @@ const Contact = () => {
                   const el = document.getElementById("calendar-frame");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="py-3 px-4 bg-gray-50 text-gray-700 border border-gray-200 font-semibold rounded-full hover:bg-gray-100 transition text-xs sm:text-sm cursor-pointer"
+                className="w-full py-2 px-3 text-xs font-semibold text-gray-500 hover:text-primary transition flex items-center justify-center space-x-1 cursor-pointer text-center"
               >
-                View Agenda Below ↓
+                <span>{t.contact.card2ViewAgendaBtn}</span>
+                <ChevronDown className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -243,8 +248,8 @@ const Contact = () => {
                 <Calendar className="w-5 h-5 text-amber-300" />
               </div>
               <div>
-                <h3 className="font-bold text-base sm:text-lg">Interactive Booking Calendar</h3>
-                <p className="text-xs text-gray-300">Select a date and time slot that fits your schedule</p>
+                <h3 className="font-bold text-base sm:text-lg">{t.contact.calendarHeaderTitle}</h3>
+                <p className="text-xs text-gray-300">{t.contact.calendarHeaderDesc}</p>
               </div>
             </div>
 
@@ -253,35 +258,35 @@ const Contact = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab("free")}
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
                   activeTab === "free"
                     ? "bg-amber-400 text-slate-950 font-bold shadow-xs"
                     : "text-white hover:text-amber-200"
                 }`}
               >
-                Free Discovery (60m)
+                {t.contact.calendarTabFree}
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("followup")}
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
                   activeTab === "followup"
                     ? "bg-amber-400 text-slate-950 font-bold shadow-xs"
                     : "text-white hover:text-amber-200"
                 }`}
               >
-                Follow-up (100€)
+                {t.contact.calendarTabFollowup}
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("all")}
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
                   activeTab === "all"
                     ? "bg-amber-400 text-slate-950 font-bold shadow-xs"
                     : "text-white hover:text-amber-200"
                 }`}
               >
-                All Options
+                {t.contact.calendarTabAll}
               </button>
             </div>
           </div>
@@ -305,7 +310,7 @@ const Contact = () => {
           <div className="p-4 bg-gray-50 border-t border-gray-100 text-center flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
             <span className="flex items-center space-x-1.5">
               <Lock className="w-3.5 h-3.5 text-gray-400" />
-              <span>Google Calendar appointment scheduling • Automatic Google Meet link included</span>
+              <span>{t.contact.calendarFooterSecurity}</span>
             </span>
             <a
               href={
@@ -317,9 +322,9 @@ const Contact = () => {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-primary hover:text-secondary inline-flex items-center space-x-1"
+              className="font-semibold text-primary hover:text-secondary inline-flex items-center space-x-1 cursor-pointer"
             >
-              <span>Open in new Google window</span>
+              <span>{t.contact.calendarFooterOpenNew}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -330,13 +335,13 @@ const Contact = () => {
           <div className="text-center max-w-xl mx-auto mb-6">
             <div className="inline-flex items-center space-x-1.5 bg-blue-50 text-primary border border-blue-200 px-3 py-1 rounded-full text-xs font-semibold mb-2">
               <Mail className="w-3.5 h-3.5" />
-              <span>Prefer to write first?</span>
+              <span>{t.contact.formBadge}</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-primary">
-              Send a Confidential Message
+              {t.contact.formTitle}
             </h2>
             <p className="text-gray-600 text-xs sm:text-sm mt-1">
-              If you’d like to describe your specific situation before booking, write to me directly. I answer personally within 24 hours.
+              {t.contact.formSubtitle}
             </p>
           </div>
 
@@ -344,13 +349,13 @@ const Contact = () => {
             {/* Name field */}
             <div className="mb-4 sm:mb-5">
               <label htmlFor="name" className="block text-gray-700 font-semibold mb-1.5 text-sm">
-                Your Name
+                {t.contact.nameLabel}
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="e.g. Alex Dupont"
+                placeholder={t.contact.namePlaceholder}
                 className="w-full px-4 py-3 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 required
               />
@@ -359,13 +364,13 @@ const Contact = () => {
             {/* Email field */}
             <div className="mb-4 sm:mb-5">
               <label htmlFor="email" className="block text-gray-700 font-semibold mb-1.5 text-sm">
-                Email Address
+                {t.contact.emailLabel}
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="you@company.com"
+                placeholder={t.contact.emailPlaceholder}
                 className="w-full px-4 py-3 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 required
               />
@@ -374,29 +379,29 @@ const Contact = () => {
             {/* Topic selector */}
             <div className="mb-4 sm:mb-5">
               <label htmlFor="topic" className="block text-gray-700 font-semibold mb-1.5 text-sm">
-                What is this regarding?
+                {t.contact.topicLabel}
               </label>
               <select
                 id="topic"
                 name="topic"
                 className="w-full px-4 py-3 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
               >
-                <option value="Life & Career Decision">Life & Career Decision (1-on-1)</option>
-                <option value="Management Mentoring">Management & Leadership Mentoring</option>
-                <option value="Team Alignment">Support for Teams</option>
-                <option value="General Question">General Question or Custom Request</option>
+                <option value="Life & Career Decision">{t.contact.topicOption1}</option>
+                <option value="Management Mentoring">{t.contact.topicOption2}</option>
+                <option value="Team Alignment">{t.contact.topicOption3}</option>
+                <option value="General Question">{t.contact.topicOption4}</option>
               </select>
             </div>
 
             {/* Message field */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-gray-700 font-semibold mb-1.5 text-sm">
-                Your Message or Challenge
+                {t.contact.messageLabel}
               </label>
               <textarea
                 id="message"
                 name="message"
-                placeholder="Tell me a bit about what is on your mind, what decision you are facing, or what you want to achieve..."
+                placeholder={t.contact.messagePlaceholder}
                 className="w-full px-4 py-3 text-sm sm:text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 rows="4"
                 required
@@ -417,19 +422,19 @@ const Contact = () => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  <span>Sending Message...</span>
+                  <span>{t.contact.sendingBtn}</span>
                 </>
               ) : (
                 <>
                   <Send className="w-4 h-4" />
-                  <span>Send Confidential Message</span>
+                  <span>{t.contact.submitBtn}</span>
                 </>
               )}
             </button>
 
             <div className="mt-4 flex items-center justify-center space-x-1.5 text-xs text-gray-400">
               <Lock className="w-3.5 h-3.5" />
-              <span>Strictly confidential. No spam or unwanted promotional emails.</span>
+              <span>{t.contact.securityDisclaimer}</span>
             </div>
           </form>
         </div>
@@ -437,7 +442,7 @@ const Contact = () => {
         {/* ---------- FOOTER BACK LINK ---------- */}
         <div className="text-center mt-8">
           <Link to="/" className="text-primary hover:text-secondary font-semibold text-sm">
-            ← Back to Home
+            {t.contact.backHome}
           </Link>
         </div>
       </div>
