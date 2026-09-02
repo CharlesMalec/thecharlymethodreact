@@ -55,6 +55,16 @@ const Contact = () => {
         existing.push(messageData);
         localStorage.setItem("contact_messages", JSON.stringify(existing));
       }
+
+      // Track Google Ads / Analytics conversion event if gtag is available
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", {
+          event_category: "Contact",
+          event_label: messageData.topic,
+          value: 1.0
+        });
+      }
+
       setRedirect(true);
     } catch (error) {
       console.error("Submit error:", error);
@@ -147,6 +157,15 @@ const Contact = () => {
                 href={BOOKING_LINKS.freeDiscovery}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+                    window.gtag("event", "begin_checkout", {
+                      event_category: "Booking",
+                      event_label: "Free Discovery Session",
+                      value: 0
+                    });
+                  }
+                }}
                 className="w-full py-3.5 px-6 bg-primary text-white font-bold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-sm shadow-md hover:shadow-lg cursor-pointer text-center"
               >
                 <span>{t.contact.card1BookBtn}</span>
@@ -218,6 +237,15 @@ const Contact = () => {
                 href={BOOKING_LINKS.followUp}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+                    window.gtag("event", "begin_checkout", {
+                      event_category: "Booking",
+                      event_label: "Follow-up Coaching Session",
+                      value: 100
+                    });
+                  }
+                }}
                 className="w-full py-3.5 px-6 bg-primary text-white font-bold rounded-full hover:bg-indigo-700 transition flex items-center justify-center space-x-2 text-sm shadow-md hover:shadow-lg cursor-pointer text-center"
               >
                 <span>{t.contact.card2BookBtn}</span>
