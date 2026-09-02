@@ -1,25 +1,33 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Charly Method",
+  "name": "The Charly Method - Leadership Coaching & Mentoring",
+  "description": "Coaching et mentorat en leadership humain pour vos choix de vie, de carrière et le management d'équipe.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1E1B4B",
+  "background_color": "#FFFFFF",
+  "categories": ["business", "lifestyle", "education"],
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "logo192.png",
+      "src": "/logo512.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "512x512",
+      "purpose": "any"
     },
     {
-      "src": "logo512.png",
+      "src": "/logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
