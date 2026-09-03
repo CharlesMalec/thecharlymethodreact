@@ -44,19 +44,19 @@ const About = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative flex-shrink-0">
                   <img
-                    src="/images/charly.jpg"
-                    alt="Charly - Coach & Career Mentor"
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-secondary/40 shadow-md bg-white"
+                    src={`${process.env.PUBLIC_URL || ""}/images/charly.png?v=3`}
+                    alt="Charles Malec - Coach & Career Mentor"
+                    className="w-20 sm:w-24 h-auto rounded-2xl shadow-md border border-slate-200/80"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = logoNoText;
                     }}
                   />
-                  <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white" title="Disponible pour les sessions" />
+                  <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-4 h-4 rounded-full border-2 border-white shadow-sm" title="Disponible pour les sessions" />
                 </div>
 
                 <div>
-                  <h3 className="font-extrabold text-xl sm:text-2xl text-primary">Charly</h3>
+                  <h3 className="font-extrabold text-xl sm:text-2xl text-primary">Charles Malec</h3>
                   <p className="text-xs sm:text-sm font-semibold text-secondary mb-1.5">{t.about.coachRole}</p>
                   <span className="inline-block bg-amber-100/90 text-amber-900 border border-amber-300/80 text-[11px] font-semibold px-3 py-0.5 rounded-full shadow-2xs">
                     {t.about.experiencePill}

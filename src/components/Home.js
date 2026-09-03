@@ -144,17 +144,17 @@ const Home = () => {
             <div className="flex-shrink-0 text-center">
               <div className="relative inline-block">
                 <img
-                  src="/images/charly.jpg"
-                  alt="Charly - Coach & Mentor"
-                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl object-cover border-2 border-secondary/40 shadow-md bg-white"
+                  src={`${process.env.PUBLIC_URL || ""}/images/charly.png?v=3`}
+                  alt="Charles Malec - Coach & Mentor"
+                  className="w-36 sm:w-44 h-auto rounded-3xl shadow-md border border-slate-200/80"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = logoNoText;
                   }}
                 />
-                <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-5 h-5 rounded-full border-2 border-white" title="Disponible pour les sessions 1-on-1" />
+                <span className="absolute -bottom-1 -right-1 bg-emerald-500 w-5 h-5 rounded-full border-2 border-white shadow-sm" title="Disponible pour les sessions 1-on-1" />
               </div>
-              <h3 className="text-xl font-extrabold text-primary mt-3">Charly</h3>
+              <h3 className="text-xl font-extrabold text-primary mt-3">Charles Malec</h3>
               <p className="text-xs text-secondary font-semibold">{t.about.coachRole}</p>
             </div>
 

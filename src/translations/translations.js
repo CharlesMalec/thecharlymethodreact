@@ -82,7 +82,7 @@ export const translations = {
       guaranteeTitle: "💬 L'engagement humain",
       guaranteeText: "Un accompagnement ne doit jamais être une formule rigide : il s'agit de votre parcours, de vos défis et de votre épanouissement. Voyons ensemble ce que nous pouvons accomplir.",
       ctaButton: "Échangeons sur votre situation actuelle",
-      bio1: "Bonjour, je suis Charly. Il nous arrive à tous d'arriver à un carrefour : devoir trancher une décision personnelle délicate ou chercher la prochaine étape de sa carrière. Dans ces moments-là, pouvoir échanger avec un interlocuteur neutre, bienveillant et expérimenté change tout.",
+      bio1: "Bonjour, je suis Charles Malec. Il nous arrive à tous d'arriver à un carrefour : devoir trancher une décision personnelle délicate ou chercher la prochaine étape de sa carrière. Dans ces moments-là, pouvoir échanger avec un interlocuteur neutre, bienveillant et expérimenté change tout.",
       bio2: "Mon coaching ne s'encombre ni de jargon d'entreprise ni de concepts théoriques abstraits. Il est ancré dans la vraie vie et le dialogue direct. Je vous aide à prendre du recul, à évaluer vos options et à poser des choix qui font véritablement sens pour vous.",
       bio3: "Ayant passé plus de dix ans à manager des équipes et à occuper des fonctions de direction, je connais intimement les réalités du quotidien professionnel. Je vous apporte des retours concrets et pragmatiques, nés de l'expérience du terrain et non de manuels scolaires.",
       bio4: "Que vous cherchiez à démêler un dilemme personnel ou à diriger vos équipes avec davantage d'assurance et de sérénité, avançons ensemble, simplement d'humain à humain."
@@ -398,7 +398,7 @@ export const translations = {
       guaranteeTitle: "💬 The Human Commitment",
       guaranteeText: "Coaching should never feel like a pre-packaged corporate process. It is about your life, your career, and your growth. Let's see what is possible together.",
       ctaButton: "Let's discuss your current situation",
-      bio1: "Hi, I'm Charly. We all reach points where decisions feel heavy — whether it's navigating a personal transition or figuring out the next step in our career. Having an objective, supportive sounding board in those moments makes all the difference.",
+      bio1: "Hi, I'm Charles Malec. We all reach points where decisions feel heavy — whether it's navigating a personal transition or figuring out the next step in our career. Having an objective, supportive sounding board in those moments makes all the difference.",
       bio2: "My coaching doesn't rely on business jargon or rigid theoretical frameworks. It's grounded in real conversations. I help you step back, look at your situation with fresh perspective, and make choices that genuinely fit who you are.",
       bio3: "Having spent over a decade leading teams and working at senior levels, I understand the real pressures of management. I offer practical, down-to-earth insights gained from experience — not from textbooks.",
       bio4: "Whether you need clarity on a specific decision or want to lead with more confidence, let's take that next step together, simply as one human to another."
